@@ -1,0 +1,187 @@
+[
+    {
+        "category": "구이 Grilled",
+        "dishes": [
+            {
+                "name": "Kimchi Samgyeopsal Gui",
+                "tags": ["Popular", "Spicy"],
+                "allergens": ["Sesame"],
+                "menuType": "Set Menu",
+                "price": 24.50,
+                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "image": "kimchisamgyeopsalgui.png",
+                "recommended": true
+            }
+            
+        ]
+    },
+    {
+        "category": "국수 Noodles",
+        "dishes": [
+            {
+                "name": "Japchae",
+                "tags": ["Non-spicy"],
+                "allergens": [""],
+                "menuType": "Set Menu",
+                "price": 22.00,
+                "description": "Description.",
+                "image": "japchae.png",
+                "recommended": false
+            },
+            {
+                "name": "Bibim Guksu",
+                "tags": ["Spicy"],
+                "allergens": [""],
+                "menuType": "Set Menu",
+                "price": 22.00,
+                "description": "Description.",
+                "image": "bibimguksu.jpg",
+                "recommended": false
+            },
+            { 
+                "name": "Moim Guksu",
+                "tags": ["Non-spicy"],
+                "allergens": [""],
+                "menuType": "Set Menu",
+                "price": 26.00,
+                "description": "Description.",
+                "image": "moimguksu.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Non-spicy Haemul Ramyun",
+                "tags": ["Non-spicy"],
+                "allergens": [""],
+                "menuType": "Set Menu",
+                "price": 26.00,
+                "description": "Description.",
+                "image": "nonspicyhaemulramen.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Haemul Ramyun",
+                "tags": ["Spicy"],
+                "allergens": [""],
+                "menuType": "Set Menu",
+                "price": 23.00,
+                "description": "Description.",
+                "image": "haemulramyun.jpg",
+                "recommended": false
+            },
+            
+                {
+                    "name": "Chicken Ramen",
+                    "tags": ["Non-spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 23.00,
+                    "description": "Description.",
+                    "image": "chickenramen.jpg",
+                    "recommended": false
+                },
+                {
+                    "name": "Budae-Jjigae-Ramen",
+                    "tags": ["Spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 24.00,
+                    "description": "Description.",
+                    "image": "budaejigaeramen.jpg",
+                    "recommended": false
+                },
+                {
+                    "name": "Sagol-Tteok-Guk",
+                    "tags": ["Non-spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 24.00,
+                    "description": "Description.",
+                    "image": "sagoltteokguk.jpg",
+                    "recommended": false
+                },
+                {
+                    "name": "Sagol Tteok-Mandu Guk",
+                    "tags": ["Non-spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 27.00,
+                    "description": "Description.",
+                    "image": "sagoltteokmanduguk.jpg",
+                    "recommended": false
+                },
+                {
+                    "name": "Sagol-Mandu-Guk",
+                    "tags": ["Non-spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 28.00,
+                    "description": "Description.",
+                    "image": "sagolmanduguk.jpg",
+                    "recommended": false
+                },
+                {
+                    "name": "Jja-Jang-Myeon",
+                    "tags": ["Non-spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 24.00,
+                    "description": "Description.",
+                    "image": "jjajangmyeon.jpg",
+                    "recommended": false
+                },
+                {
+                    "name": "Buldak-Bokkeum Myeon",
+                    "tags": ["Spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 21.00,
+                    "description": "Description.",
+                    "image": "buldakbokkeummyeon.jpg",
+                    "recommended": false
+                },
+                {
+                    "name": "Mul-Naeng-Myeon",
+                    "tags": ["Non-spicy"],
+                    "allergens": [""],
+                    "menuType": "Set Menu",
+                    "price": 26.00,
+                    "description": "Description.",
+                    "image": "mulnaengmyeon.jpg",
+                    "recommended": false
+                }
+            
+            
+        ]
+    },
+    {
+        "category": "밥 Rice",
+        "dishes": [
+            {
+                "name": "Bibimbap",
+                "tags": ["Popular"],
+                "allergens": ["Soy"],
+                "menuType": "Set Menu",
+                "price": 20.00,
+                "description": "A Korean mixed rice dish with assorted vegetables and a fried egg on top.",
+                "image": "path/to/bibimbap.jpg",
+                "recommended": false
+            }
+        ]
+    },
+    {
+        "category": "찌개 Stew",
+        "dishes": [
+            {
+                "name": "Kimchi Jigae",
+                "tags": ["Popular"],
+                "allergens": ["Soy", "Sesame"],
+                "menuType": "Set Menu",
+                "price": 22.00,
+                "description": "Kimchi Stew with Pork belly",
+                "image": "path/to/kimchi-stew.jpg",
+                "recommended": false
+            }
+        ]
+    }
+
+]
