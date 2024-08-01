@@ -251,21 +251,92 @@ h2 {
     margin-right: 5px;
 }
 
-.card .tag.popular {
-    background-color: #F1E1C6;
-    color: #7A2C2E;
+.card .tag.best.seller {
+    background-color: #e9bf78;
+    color: #090101;
 }
 
+.card .tag.non-spicy {
+    background-color: #fbecec;
+    color: #030000;
+}
+.card .tag.little.spicy {
+    background-color: #fbbabf;
+    color: #ce252b;
+}
 .card .tag.spicy {
+    background-color: #eb4b55;
+    color: #f6e8e8;
+}
+.card .tag.very.spicy {
+    background-color: #ee1423;
+    color: #f4d0d1;
+}
+.card .tag.sweet {
+    background-color: #a86217;
+    color: #fff9f4;
+}
+.card .tag.cold {
+    background-color: #b0d8f7;
+    color: #00100d;
+}
+.card .tag.vegetarian {
+    background-color: #aaf3a9;
+    color: #000000;
+}
+.card .tag.pork {
     background-color: #F7E6E7;
-    color: #7A2C2E;
+    color: #140001;
+}
+.card .tag.beef {
+    background-color: #F7E6E7;
+    color: #140001;
+}
+.card .tag.chicken {
+    background-color: #F7E6E7;
+    color: #140001;
 }
 
+.card .tag.seafood{
+    background-color: #a3afe7;
+    color: #fbfdfe;
+}
+.card .tag.black.bean {
+    background-color: #702d0d;
+    color: #f5ece6;
+}
+.card .tag.child.friendly {
+    background-color: #f2f20c;
+    color: #000000;
+}
+.card .tag.rice{
+    background-color: #f7f7ef;
+    color: #000000;
+}
+.card .tag.fried {
+    background-color: #f6f1bb;
+    color: #140001;
+}
+.card .tag.boiled {
+    background-color: #d3ecf2;
+    color: #140001;
+}
+.card .tag.refillable {
+    background-color: #d3ecf2;
+    color: #140001;
+}
 .card .allergens {
     font-size: 0.8em;
     color: #7A2C2E;
     margin: 10px 0;
 }
+.description {
+    margin-top: 10px;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #555;
+}
+
 .options-container {
     display: flex;
     flex-wrap: wrap;  /* Allow items to wrap to the next line */
@@ -392,4 +463,78 @@ h2 {
 
 .view-menu-button:hover {
     background-color: #5A1D1F;
+}.container.o {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.order-item.o {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dish-name.o {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.selected-options {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.quantity-display {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.dish-price {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.remove-button:hover {
+    background-color: #d32f2f;
+}
+
+.comment-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.comment-input {
+    width: 80%;
+    min-height: 80px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-family: inherit;
+}
+
+.total-price {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.empty-cart-message,
+.error-message {
+    color: red;
+    font-weight: bold;
 }

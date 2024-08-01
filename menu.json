@@ -4,81 +4,100 @@
         "dishes": [
             {
                 "name": "Kimchi Samgyeopsal Gui",
-                "tags": ["Popular", "Pork", "Spicy"],
+                "tags": ["Best Seller", "Pork", "Little Spicy"],
                 "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [
+                    {"name": "A La Carte", "priceIncrement": 0.00, "isDiscount":true,"multiple":false}
+                ],
+                "price": 28.00,
+                "description": "Grilled pork belly with stir fried kimchi",
                 "image": "kimchisamgyeopsalgui.jpg",
                 "recommended": false
             },
             {
                 "name": "Galbi Gui",
-                "tags": ["Beef","Sweet"],
+                "tags": ["Best Seller","Beef","Sweet"],
                 "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [
+                    {"name": "Non Spicy Veg", "priceIncrement": 0.00, "multiple": true},
+                    {"name": "A La Carte", "priceIncrement": -2.00, "multiple":true}
+                ],
+                "price": 43.00,
+                "description": "Grilled beef short ribs marinated in a sweet soy sauce served with spicy seasoned vegetables",
                 "image": "galbigui.jpg",
                 "recommended": false
             },
             {
                 "name": "Bulgogi",
-                "tags": ["Popular", "Beef","Sweet"],
+                "tags": ["Beef","Sweet"],
                 "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [
+                    {"name": "A La Carte", "priceIncrement": -2.00, "multiple":true}
+                ],
+                "price": 36.00,
+                "description": "Pan fried beef marinated in a sweet soy sauce with vegetables",
                 "image": "bulgogi.jpg",
                 "recommended": false
             },
             {
                 "name": "Samgyeopsal Gui",
-                "tags": ["Pork","Spicy", "Sweet"],
+                "tags": ["Pork","Little Spicy", "Sweet"],
                 "allergens": ["Sesame"],
-                "options": ["Non-spicy"],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [ 
+                    {"name": "Non Spicy Veg", "priceIncrement": 0.00, "multiple": true},
+                    {"name": "A La Carte", "priceIncrement": 0.00, "isDiscount":true,"multiple":true}
+                ],
+                "price": 27.00,
+                "description": "Grilled pork belly with spicy seasoned vegetables",
                 "image": "samgyeopsalgui.jpg",
                 "recommended": false
             },
             {
                 "name": "Jeyuk Bokkeum",
-                "tags": ["Pork","Spicy"],
+                "tags": ["Best Seller","Pork","Spicy"],
                 "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [
+                    {"name": "A La Carte", "priceIncrement": 0.00, "isDiscount":true,"multiple":false}
+                ],
+                "price": 26.00,
+                "description": "Stir fried pork in a spicy sauce with vegetables",
                 "image": "jeyukbokkeum.jpg",
                 "recommended": true
             },
             {
                 "name": "Dakgalbi",
-                "tags": ["Chicken", "Spicy"],
-                "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "tags": ["Best Seller","Chicken", "Spicy"],
+                "allergens": [],
+                "options": [
+                    {"name": "A La Carte", "priceIncrement": 0.00, "isDiscount":true,"multiple":false}
+                ],
+                "price": 25.00,
+                "description": "Pan fried chicken in a spicy sauce with vegetables",
                 "image": "dakgalbi.jpg",
                 "recommended": false
             },
             {
                 "name": "Dwaeji Bulgogi",
-                "tags": ["Popular", "Pork", "Sweet"],
+                "tags": ["Pork", "Sweet"],
                 "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [
+                    {"name": "A La Carte", "priceIncrement": 0.00, "isDiscount":true,"multiple":false}
+                ],
+                "price": 26.00,
+                "description": "Pan fried pork marinated in a sweet soy sauce with vegetables",
                 "image": "dwaejibulgogi.jpg",
                 "recommended": false
             },
             {
                 "name": "Dwaeji Galbi",
-                "tags": ["Popular", "Pork", "Sweet"],
+                "tags": ["Best Seller", "Pork", "Sweet"],
                 "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [
+                    {"name": "Non Spicy Veg", "priceIncrement": 0.00, "multiple": true},
+                    {"name": "A La Carte", "priceIncrement": 0.00, "isDiscount":true,"multiple":true}
+                ],
+                "price": 28.00,
+                "description": "Grilled pork marinated in a sweet soy sauce served with spicy seasoned vegetables",
                 "image": "dwaejigalbi.jpg",
                 "recommended": false
             },
@@ -86,9 +105,9 @@
                 "name": "Dak Bulgogi",
                 "tags": ["Chicken", "Sweet"],
                 "allergens": ["Sesame"],
-                "options": [],
-                "price": 24.50,
-                "description": "A savory dish featuring grilled pork belly with kimchi.",
+                "options": [{"name": "A La Carte", "priceIncrement": 0.00, "isDiscount":true,"multiple":true}],
+                "price": 25.00,
+                "description": "Stir fried chicken marinated in a sweet soy sauce served with vegetables",
                 "image": "dakbulgogi.jpg", 
                 "recommended": false
             }
@@ -104,8 +123,8 @@
                 "tags": ["Best Seller","Pork","Non-spicy"],
                 "allergens": ["Sesame"],
                 "options": [
-                    {"name": "Vegetarian", "priceIncrement": 0.00, "multiple": false },
-                    {"name": "Beef", "priceIncrement": 5.00, "multiple": false }      
+                    {"name": "Vegetarian", "priceIncrement": 0.00,  "isDiscount": false, "multiple": false },
+                    {"name": "Beef", "priceIncrement": 5.00, "isDiscount": false, "multiple": false }      
                 ],
                 "price": 22.00,
                 "description": "Stir-fried glass noodle with pork and vegetables",
@@ -115,7 +134,7 @@
             {
                 "name": "Bibim Guksu",
                 "tags": ["Pork", "Cold", "Spicy"],
-                "allergens": ["egg", "sesame"],
+                "allergens": ["Egg", "sesame"],
                 "options": [
                     {"name": "change Ramyeon", "priceIncrement": 3.00}
                 ],
@@ -127,10 +146,10 @@
             { 
                 "name": "Moim Guksu",
                 "tags": ["Best Seller","Pork","Sweet"],
-                "allergens": ["egg"],
+                "allergens": ["Egg"],
                 "options": [
-                    {"name": "change Ramyeon", "priceIncrement": 3.00},
-                    {"name": "change Beef", "priceIncrement": 7.00}
+                    {"name": "change Ramyeon", "priceIncrement": 3.00, "multiple":true},
+                    {"name": "change Beef", "priceIncrement": 7.00, "multiple":true}
                 ],
                 "price": 26.00,
                 "description": "Thin noodle soup topped with pan-fried marinated pork",
@@ -140,7 +159,7 @@
             { 
                 "name": "Janchi Guksu",
                 "tags": ["Vegetarian"],
-                "allergens": ["egg"],
+                "allergens": ["Egg"],
                 "options": [
                     {"name": "change Ramyeon", "priceIncrement": 3.00}
                 ],
@@ -192,7 +211,7 @@
             {
                 "name": "Sagol-Tteok-Guk",
                 "tags": ["Beef","Non-spicy"],
-                "allergens": ["egg"],
+                "allergens": ["Egg"],
                 "options": [
                     {"name": "change Ramyeon", "priceIncrement": 3.00}
                 ],
@@ -204,10 +223,11 @@
             {
                 "name": "Sagol Tteok-Mandu Guk",
                 "tags": ["Beef","Non-spicy"],
-                "allergens": ["egg"],
+                "allergens": ["Egg"],
                 "options": [
-                    {"name": "Pork Dumpling", "priceIncrement": 0.00},
-                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00}
+                    {"name": "Pork Dumpling", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00, "multiple":false},
+                    {"name": "change Ramyeon", "priceIncrement": 3.00, "multiple": true}
                 ],
                 "price": 27.00,
                 "description": "Beef bone broth soup with sliced ovals of rice cake and Korean dumplings",
@@ -217,11 +237,11 @@
             {
                 "name": "Sagol-Mandu-Guk",
                 "tags": ["Beef","Non-spicy"],
-                "allergens": ["egg"],
+                "allergens": ["Egg"],
                 "options": [
-                    {"name": "Pork Dumpling", "priceIncrement": 0.00},
-                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00},
-                    {"name": "Mix Dumpling", "priceIncrement": 0.00}
+                    {"name": "Pork Dumpling", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Mix Dumpling", "priceIncrement": 0.00, "multiple": false}
                    
                 ],
                 "price": 28.00,
@@ -231,7 +251,7 @@
             },
             {
                 "name": "Jja-Jang-Myeon",
-                "tags": ["Pork","Non-spicy"],
+                "tags": ["Pork","Black bean","Non-spicy"],
                 "allergens": [""],
                 "options": [],
                 "price": 24.00,
@@ -242,7 +262,7 @@
             {
                 "name": "Buldak-Bokkeum Myeon",
                 "tags": ["Very Spicy"],
-                "allergens": ["egg"],
+                "allergens": ["Egg"],
                 "options": [],
                 "price": 21.00,
                 "description": "Stir fried super spicy chicken flavoured ramyeon",
@@ -256,7 +276,7 @@
                 "options": [],
                 "price": 26.00,
                 "description": "Cold buckwheat noodle with sliced beef",
-                "image": "mulnaengmyeon.jpg",
+                "image": "mulnaengmyeon.png",
                 "recommended": false
             }
             
@@ -267,52 +287,80 @@
         "category": "밥 Rice",
         "dishes": [
             {
-                "name": "Bibimbap",
-                "tags": ["Popular"],
-                "allergens": ["Soy"],
-                "options": [],
-                "price": 20.00,
-                "description": "A Korean mixed rice dish with assorted vegetables and a fried egg on top.",
-                "image": "bibimbap.jpg",
+                "name": "Dolsot Bibimbap",
+                "tags": ["Best Seller", "Pork", "Spicy"],
+                "allergens": ["Egg"],
+                "options": [
+                    {"name": "Vegetarian", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Change Beef", "priceIncrement": 5.00, "multiple":false},
+                    {"name": "Non Spicy Sauce", "priceIncrement": 0.00, "multiple": true}
+                ],
+                "price": 28.00,
+                "description": "Hot stone pot bibimbap",
+                "image": "dolsotbibimbap.png",
                 "recommended": false
             },
             {
                 "name": "Kimchi Bokkeum Bap",
-                "tags": ["Popular", "Spicy"],
-                "allergens": ["Soy"],
+                "tags": ["Best Seller", "Pork","Spicy"],
+                "allergens": ["Egg"],
                 "options": [],
-                "price": 20.00,
-                "description": "A Korean mixed rice dish with assorted vegetables and a fried egg on top.",
+                "price": 26.00,
+                "description": "Kimchi and pork fried rice",
                 "image": "kimchibokkeumbap.jpg",
                 "recommended": false
             },
             {
-                "name": "Sogogi Bokkeum Bap",
-                "tags": ["Beef", "Light"],
-                "allergens": ["Soy"],
+                "name": "Bibimbap",
+                "tags": ["Pork", "Spicy"],
+                "allergens": ["Egg"],
+                "options": [
+                    {"name": "Vegetarian", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Change Beef", "priceIncrement": 5.00, "multiple":false},
+                    {"name": "Non Spicy Sauce", "priceIncrement": 0.00, "multiple": true}
+                ],
+                "price": 25.00,
+                "description": "Served as a bowl of steamed rice topped with variety of vegetables and pork with red chili paste",
+                "image": "bibimbap.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Jja Jang Bap",
+                "tags": ["Pork","Black bean"],
+                "allergens": ["Egg"],
                 "options": [],
-                "price": 20.00,
-                "description": "A Korean mixed rice dish with assorted vegetables and a fried egg on top.",
+                "price": 25.00,
+                "description": "Rice with black bean sauce",
+                "image": "jjajangbap.png",
+                "recommended": false
+            },
+            {
+                "name": "Sogogi Bokkeum Bap",
+                "tags": ["Beef","Child Friendly"],
+                "allergens": [],
+                "options": [],
+                "price": 26.00,
+                "description": "Beef and vegetable fried rice",
                 "image": "sogogibokkeumbap.jpg",
                 "recommended": false
             },
             {
                 "name": "Saeu Bokkeum Bap",
                 "tags": ["Seafood"],
-                "allergens": ["Soy"],
+                "allergens": ["Shrimp"],
                 "options": [],
-                "price": 20.00,
-                "description": "A Korean mixed rice dish with assorted vegetables and a fried egg on top.",
+                "price": 26.00,
+                "description": "Shrimp and vegetable fried rice",
                 "image": "saeubokkeumbap.jpg",
                 "recommended": false
             },
             {
                 "name": "Gaeran Bokkeum Bap",
-                "tags": [],
-                "allergens": ["Soy"],
+                "tags": ["Child Friendly"],
+                "allergens": ["Egg"],
                 "options": [],
-                "price": 20.00,
-                "description": "A Korean mixed rice dish with assorted vegetables and a fried egg on top.",
+                "price": 22.00,
+                "description": "Egg and vegetable fried rice",
                 "image": "gaeranbokkeumbap.jpg",
                 "recommended": false
             }
@@ -323,33 +371,40 @@
         "dishes": [
             {
                 "name": "Kimchi Jjigae",
-                "tags": ["Popular", "Spicy"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Best Seller", "Spicy"],
+                "allergens": [],
                 "options": [
                      {"name": "Tuna", "priceIncrement": 3.00, "multiple": true}, 
                      { "name": "A La Carte", "isDiscount": true, "multiple": true }],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 23.00,
+                "description": "Kimchi stew with tofu and pork",
                 "image": "kimchijjigae.jpg",
                 "recommended": false
             },
             {
                 "name": "Sundubu Jjigae",
-                "tags": ["Popular", "Spicy"],
-                "allergens": ["Soy", "Sesame"],
-                "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "tags": ["Seafood", "Spicy"],
+                "allergens": ["Egg", "Sesame"],
+                "options": [
+                    {"name": "Pork", "priceIncrement": 3.00, "multiple": true}, 
+                    { "name": "A La Carte", "isDiscount": true, "multiple": true }
+                ],
+                "price": 24.00,
+                "description": "Spicy soft tofu stew with seafood and egg",
                 "image": "sundubujjigae.jpg",
                 "recommended": false
             },
             {
                 "name": "Doenjang Jjigae",
-                "tags": ["Popular", "Vegetarian"],
-                "allergens": ["Soy", "Sesame"],
-                "options": [],
+                "tags": ["Vegetarian", "Non-spicy"],
+                "allergens": ["Soy"],
+                "options": [
+                    {"name": "Add Seafood", "priceIncrement": 5.00, "multiple": false}, 
+                    {"name": "Add Beef", "priceIncrement": 7.00, "multiple": false}, 
+                    {"name": "A La Carte", "isDiscount": true, "multiple": true }
+                ],
                 "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "description": "Soybean paste stew with variety of vegetables and tofu",
                 "image": "doenjangjjigae.jpg",
                 "recommended": false
             }
@@ -360,21 +415,25 @@
         "dishes": [
             {
                 "name": "Nakji Bokkeum",
-                "tags": ["Octopus","Spicy"],
-                "allergens": ["Soy", "Sesame"],
-                "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "tags": ["Best Seller","Seafood","Very Spicy"],
+                "allergens": ["Octopus"],
+                "options": [
+                    { "name": "A La Carte", "isDiscount": true, "multiple": true }
+                ],
+                "price": 27.00,
+                "description": "Stir fried octopus in a spicy sauce with vegetables",
                 "image": "nakjibokkeum.jpg",
                 "recommended": false
             },
             {
                 "name": "Godeungeo gui",
-                "tags": ["Fish"],
-                "allergens": ["Soy", "Sesame"],
-                "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "tags": ["Best Seller","Seafood"],
+                "allergens": ["Mackerel"],
+                "options": [
+                    { "name": "A La Carte", "isDiscount": true, "multiple": true }
+                ],
+                "price": 27.00,
+                "description": "Salted grilled mackerel (Korean sea salt)",
                 "image": "godeungeogui.jpg",
                 "recommended": false
             }
@@ -385,12 +444,22 @@
         "dishes": [
             {
                 "name": "Samgyetang",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Best Seller", "Chicken", "Rice"],
+                "allergens": ["Ginseng"],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 45.00,
+                "description": "Rice stuffed Ginseng chicken soup",
                 "image": "samgyetang.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Sogogi Miyeok Guk",
+                "tags": ["Beef"],
+                "allergens": ["Seaweed"],
+                "options": [],
+                "price": 27.00,
+                "description": "Beef Seaweed soup ",
+                "image": "sogogimiyeokguk.png",
                 "recommended": false
             }
         ]
@@ -400,111 +469,128 @@
         "dishes": [
             {
                 "name": "Haemul pajeon",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Best Seller","Seafood"],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 23.00,
+                "description": "Seafood and green onion pancake",
                 "image": "haemulpajeon.jpg",
                 "recommended": false
             },
             {
                 "name": "Kimchi Jeon",
-                "tags": ["Popular", "Spicy"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Vegetarian", "Little Spicy"],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 21.00,
+                "description": "Kimchi pancake",
                 "image": "kimchijeon.jpg",
                 "recommended": false
             },
             {
                 "name": "Modum Jeon",
-                "tags": ["Popular", "Vegetarian"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Pork"],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 32.00,
+                "description": "Assorted savory pancakes [Kimchi,Zucchini,Porkmeat]",
                 "image": "modumjeon.jpg",
                 "recommended": false
             },
             {
                 "name": "Tteokbokki",
-                "tags": ["Popular", "Vegetarian"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Spicy", "Seafood"],
+                "allergens": ["Egg", "Sesame"],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 20.00,
+                "description": "Stir fried rice cake with korean fishcake and vegetables in a spicy sauce",
                 "image": "tteokbokki.jpg",
                 "recommended": false
             },
             {
                 "name": "Gungjung Tteokbokki",
-                "tags": ["Popular", "Vegetarian"],
+                "tags": ["Pork", "Sweet"],
                 "allergens": ["Soy", "Sesame"],
-                "options": [],
+                "options": [
+                    {"name": "Beef", "priceIncrement": 5.00, "multiple": true}
+                ],
                 "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "description": "Stir fried rice cake with sliced pork and vegetables in a sweet soy sauce",
                 "image": "gungjungtteokbokki.jpg",
                 "recommended": false
             },
             {
                 "name": "Japchae",
-                "tags": ["Popular", "Vegetarian"],
+                "tags": ["Best Seller", "Pork"],
                 "allergens": ["Soy", "Sesame"],
-                "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "Change Vegetarian", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Change Beef", "priceIncrement": 5.00, "multiple": false}
+                ],
+                "price": 20.00,
+                "description": "Stir fried glass noodles with pork and vegetables",
                 "image": "japchae.jpg",
                 "recommended": false
             },
             {
                 "name": "Gyeranmari",
-                "tags": ["Popular", "Vegetarian"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Vegetarian"],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 18.00,
+                "description": "Rolled omelet with chopped vegetables",
                 "image": "gyeranmari.jpg",
                 "recommended": false
             },
             {
                 "name": "Gun Mandu",
-                "tags": ["Popular", "Vegetarian"],
+                "tags": ["Pork", "Fried"],
                 "allergens": ["Soy", "Sesame"],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 19.00,
+                "description": "Korean fried pork dumplings",
                 "image": "gunmandu.jpg",
                 "recommended": false
             },
             {
                 "name": "Mul Mandu",
-                "tags": ["Popular", "Vegetarian"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Pork", "Boiled"],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 18.00,
+                "description": "Korean boiled pork dumplings",
                 "image": "mulmandu.jpg",
                 "recommended": false
             },
             {
+                "name": "Korean Salad",
+                "tags": ["Vegetarian"],
+                "allergens": ["Sesame"],
+                "options": [
+                    {"name": "Add Seafood", "priceIncrement": 5.00, "multiple": false}
+                ],
+                "price": 18.00,
+                "description": "Variety of vegetables and korean style soy sauce and sesame oil dressing",
+                "image": "koreansalad.png",
+                "recommended": false
+            },
+            {
                 "name": "Gim",
-                "tags": ["Popular", "Vegetarian"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": [],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 5.00,
+                "description": "Laver",
                 "image": "gim.jpg",
                 "recommended": false
             },
             {
                 "name": "Gongi Bap",
-                "tags": ["Popular", "Vegetarian"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": [],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 5.00,
+                "description": "Steamed rice",
                 "image": "gonggibap.jpg",
                 "recommended": false
             }
@@ -516,81 +602,107 @@
         "dishes": [
             {
                 "name": "Honey Citron",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
-                "options": ["Hot", "Cold", "Sparkling"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "tags": ["Best Seller"],
+                "allergens": [],
+                "options": [
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                ],
+                "price": 0.00,
+                "description": "Honey citron",
                 "image": "honeycitron.png",
                 "recommended": false
             },
             {
                 "name": "Honey Green Plum",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
-                "options": ["Hot", "Cold", "Sparkling"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "tags": [],
+                "allergens": [],
+                "options": [
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                ],
+                "price": 0.00,
+                "description": "Honey green plum",
                 "image": "honeygreenplum.png",
                 "recommended": false
             },
             {
                 "name": "Honey Lemon",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
-                "options": ["Hot", "Cold", "Sparkling"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "tags": [],
+                "allergens": [],
+                "options": [
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                ],
+                "price": 0.00,
+                "description": "Honey lemon",
                 "image": "honeylemon.png",
                 "recommended": false
             },
             {
                 "name": "Honey Jujube",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
-                "options": ["Hot", "Cold", "Sparkling"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "tags": [],
+                "allergens": [],
+                "options": [
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                ],
+                "price": 0.00,
+                "description": "Honey jujube",
                 "image": "honeyjujube.png",
                 "recommended": false
             },
             {
                 "name": "Iced Lemon Tea",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 7.00,
+                "description": "Iced lemon tea",
                 "image": "icelemontea.png",
                 "recommended": false
             },
             {
                 "name": "Barley Tea",
-                "tags": ["Popular"],
+                "tags": ["Best Seller", "Refillable"],
                 "allergens": [],
-                "options": ["Hot", "Cold"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                    
+                ],
+                "price": 3.00,
+                "description": "Roasted barley tea",
                 "image": "barleytea.png",
                 "recommended": false
             },
             {
                 "name": "Green Tea",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
-                "options": ["Hot", "Cold"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 4.00,
+                "description": "Green tea",
                 "image": "greentea.png",
                 "recommended": false
             },
             {
                 "name": "Ginseng Tea",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
-                "options": ["Hot", "Cold"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 5.00,
+                "description": "Ginseng tea",
                 "image": "ginsengtea.png",
                 "recommended": false
             }
@@ -603,51 +715,57 @@
         "dishes": [
             {
                 "name": "Sweet Rice Punch",
-                "tags": ["Popular"],
+                "tags": ["Best Seller"],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
+                "price": 7.00,
                 "description": "Sweet Rice Punch",
                 "image": "sweetricepunch.png",
                 "recommended": false
             },
             {
                 "name": "Crushed Pear Juice",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": ["Best Seller"],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 7.00,
+                "description": "Crushed pear juice",
                 "image": "crushedpearjuice.png",
                 "recommended": false
             },
             {
                 "name": "Fresh Juice",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
-                "options": ["Orange","Green Apple","Apple Carrot","Pineapple","Watermelon" ],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
-                "image": "crushedpearjuice.png",
+                "options": [
+                    {"name": "Orange", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Green Apple", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Apple Carrot", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Pineapple", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Watermelon", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 15.00,
+                "description": "100% Slow pressed fruit juice, no sugar, no ice",
+                "image": "freshjuice.png",
                 "recommended": false
             },
             {
                 "name": "Podo Bong Bong",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": [],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 7.00,
+                "description": "Grape juice with real green grape bits",
                 "image": "podobongbong.png",
                 "recommended": false
             },
             {
                 "name": "Misutgaru",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": [],
+                "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 7.00,
+                "description": "Roasted multi grain powder shake",
                 "image": "misutgaru.png",
                 "recommended": false
             }
@@ -658,41 +776,46 @@
         "dishes": [
             {
                 "name": "Soju",
-                "tags": ["Popular"],
+                "tags": ["Best Seller"],
                 "allergens": [],
-                "options": ["Saero", "Chumchrum"],
-                "price": 22.00,
-                "description": "Sweet Rice Punch",
+                "options": [
+                    {"name": "Saero", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Jinro", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 30.00,
+                "description": "Soju",
                 "image": "soju.png",
                 "recommended": false
             },
             {
                 "name": "Maekju",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
-                "options": ["Cass"],
-                "price": 22.00,
-                "description": "Beer",
+                "options": [
+                    {"name": "Cass", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 20.00,
+                "description": "Korean Can Beer",
                 "image": "beer.png",
                 "recommended": false
             },
             {
                 "name": "Makgeolli",
-                "tags": ["Popular"],
+                "tags": ["Best Seller"],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 30.00,
+                "description": "Raw rice wine",
                 "image": "makgeolli.png",
                 "recommended": false
             },
             {
                 "name": "Maesil Ju",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 50.00,
+                "description": "Green plum wine",
                 "image": "maesilju.png",
                 "recommended": false
             },
@@ -701,8 +824,8 @@
                 "tags": [],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 60.00,
+                "description": "Raspberry wine",
                 "image": "bokbunjaju.png",
                 "recommended": false
             },
@@ -711,18 +834,18 @@
                 "tags": [],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 15.00,
+                "description": "Makgeolli cocktail (1 Glass)",
                 "image": "maktail.png",
                 "recommended": false
             },
             {
                 "name": "Soju Cocktail",
-                "tags": ["Popular"],
+                "tags": ["Best Seller"],
                 "allergens": [],
                 "options": ["Yuzu", "Grape"],
                 "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "description": "Fruit flavoured soju",
                 "image": "sojucocktail.png",
                 "recommended": false
             }
@@ -735,11 +858,14 @@
             
             {
                 "name": "Korean Milk Coffee",
-                "tags": ["Popular"],
+                "tags": ["Best Seller"],
                 "allergens": ["Dairy"],
-                "options": ["Hot", "Cold"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false}
+                ],
+                "price": 0.00,
+                "description": "Korean milk coffee",
                 "image": "koreanmilkcoffee.png",
                 "recommended": false
             },
@@ -747,49 +873,58 @@
                 "name": "Americano",
                 "tags": [],
                 "allergens": [],
-                "options": ["Hot", "Cold"],
-                "price": 22.00,
-                "description": "Sweet Rice Punch",
+                "options": [
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 6.00,
+                "description": "Americano",
                 "image": "americano.png",
                 "recommended": false
             },
             {
                 "name": "Long Black",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 8.00,
+                "description": "Long black",
                 "image": "longblack.jpeg",
                 "recommended": false
             },
             {
-                "name": "Caffe late",
-                "tags": ["Popular"],
+                "name": "Cafe latte",
+                "tags": [],
                 "allergens": ["Dairy"],
-                "options": ["Hot", "Cold"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
-                "image": "caffelate.png",
+                "options": [
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false}
+                ],
+                "price": 0.00,
+                "description": "Cafe latte",
+                "image": "cafelatte.png",
                 "recommended": false
             },
             {
                 "name": "Cappuccino",
-                "tags": ["Popular"],
-                "allergens": ["Soy", "Sesame"],
+                "tags": [],
+                "allergens": ["Dairy"],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 8.00,
+                "description": "Cappuccino",
                 "image": "cappuccino.png",
                 "recommended": false
             },
             {
                 "name": "Korean Coffee",
-                "tags": ["Popular"],
+                "tags": [],
                 "allergens": [],
-                "options": ["Hot", "Cold"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "Hot", "priceIncrement": 7.00, "multiple": false},
+                    {"name": "Cold", "priceIncrement": 8.00, "multiple": false}
+                ],
+                "price": 0.00,
+                "description": "Korean coffee",
                 "image": "koreancoffee.png",
                 "recommended": false
             }
@@ -802,11 +937,14 @@
             
             {
                 "name": "Coca Cola",
-                "tags": ["Popular"],
+                "tags": ["Best Seller"],
                 "allergens": [],
-                "options": ["Original", "Zero"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "Original", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Zero", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 6.00,
+                "description": "Coca Cola",
                 "image": "coke.png",
                 "recommended": false
             },
@@ -814,9 +952,12 @@
                 "name": "Fanta",
                 "tags": [],
                 "allergens": [],
-                "options": ["Grape", "Orange"],
-                "price": 22.00,
-                "description": "Sweet Rice Punch",
+                "options": [
+                    {"name": "Grape", "priceIncrement": 0.00, "multiple": false},
+                    {"name": "Orange", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 6.00,
+                "description": "Fanta",
                 "image": "fanta.png",
                 "recommended": false
             },
@@ -825,8 +966,8 @@
                 "tags": [],
                 "allergens": [],
                 "options": [],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "price": 6.00,
+                "description": "Sprite",
                 "image": "sprite.png",
                 "recommended": false
             },
@@ -834,9 +975,11 @@
                 "name": "Mineral Water",
                 "tags": [],
                 "allergens": [],
-                "options": ["With ice"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "with Ice", "priceIncrement": 1.00, "multiple": false}
+                ],
+                "price": 4.00,
+                "description": "Mineral Water",
                 "image": "mineralwater.png",
                 "recommended": false
             },
@@ -844,9 +987,11 @@
                 "name": "Sparkling Water",
                 "tags": [],
                 "allergens": [],
-                "options": ["With Lemon"],
-                "price": 22.00,
-                "description": "Kimchi Stew with Pork belly",
+                "options": [
+                    {"name": "with Lemon", "priceIncrement": 0.00, "multiple": false}
+                ],
+                "price": 2.00,
+                "description": "Sparkling water",
                 "image": "sparklingwater.png",
                 "recommended": false
             }
