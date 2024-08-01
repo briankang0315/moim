@@ -358,11 +358,12 @@ function updateCartButton() {
         proceedToOrderButton.classList.add('disabled');
     }
 }
-
 function proceedToOrder() {
-    const tableNumber = sessionStorage.getItem('tableNumber') || ''; // Default to empty if not set
+    const tableNumber = sessionStorage.getItem('tableNumber') || ''; // Retrieve table number
+    sessionStorage.setItem('cart', JSON.stringify(cart)); // Store cart data in session storage
 
-    const encodedCart = encodeURIComponent(JSON.stringify(cart));
-
-    window.location.href = `ordersummary.html?cart=${encodedCart}&table=${encodeURIComponent(tableNumber)}`;
+    // Redirect to order summary without cart data in the URL
+    window.location.href = `ordersummary.html?table=${encodeURIComponent(tableNumber)}`;
 }
+
+

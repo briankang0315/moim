@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const cartData = urlParams.get('cart');
+    const cartData = sessionStorage.getItem('cart'); // Retrieve cart data from session storage
     const orderSummary = document.getElementById('orderSummary');
 
     let totalPrice = 0;
 
-    // Check if cart data is present
     if (cartData) {
         try {
-            // Decode and parse the cart data safely
-            const decodedCartData = decodeURIComponent(cartData);
-            const cart = JSON.parse(decodedCartData);
+            const cart = JSON.parse(cartData);
+            console.log('Parsed Cart:', cart); // Debug: Log parsed cart
 
             // Group dishes by name and options to calculate quantities
             const groupedDishes = {};
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const optionItem = document.createElement('li');
                     optionItem.textContent = option.isDiscount
                         ? `${option.name} (10% Off)`
-                        : `${option.name} `;
+                        : `${option.name}`;
                     selectedOptions.appendChild(optionItem);
                 });
 
@@ -140,6 +137,7 @@ function updateTotalPrice(newTotal) {
         totalElement.textContent = `Total: RM ${newTotal.toFixed(2)}`;
     }
 }
+
 function confirmOrder() {
     const tableNumber = sessionStorage.getItem('tableNumber');
     const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
