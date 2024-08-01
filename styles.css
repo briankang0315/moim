@@ -280,11 +280,12 @@ h2 {
     border-radius: 20px;
     border: 1px solid #ccc;
     background-color: #F9F9F9;
+    font-size: 11px;
     color: #7A2C2E;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
     flex: 1 1 45%;  /* Make each button occupy up to 45% of the row */
-    max-width: 100px;  /* Maximum width for each button */
+    max-width: 120px;  /* Maximum width for each button */
     box-sizing: border-box;  /* Include padding and border in width */
     text-align: center;  /* Center text inside button */
     height: 30px;

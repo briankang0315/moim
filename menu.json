@@ -101,135 +101,164 @@
         "dishes": [
             {
                 "name": "Japchae",
-                "tags": ["Non-spicy"],
-                "allergens": [""],
-                "options": [],
+                "tags": ["Best Seller","Pork","Non-spicy"],
+                "allergens": ["Sesame"],
+                "options": [
+                    {"name": "Vegetarian", "priceIncrement": 0.00, "multiple": false },
+                    {"name": "Beef", "priceIncrement": 5.00, "multiple": false }      
+                ],
                 "price": 22.00,
-                "description": "Description.",
-                "image": "japchae.png",
+                "description": "Stir-fried glass noodle with pork and vegetables",
+                "image": "japchae.jpg",
                 "recommended": false
             },
             {
                 "name": "Bibim Guksu",
-                "tags": ["Spicy"],
-                "allergens": [""],
-                "options": [],
+                "tags": ["Pork", "Cold", "Spicy"],
+                "allergens": ["egg", "sesame"],
+                "options": [
+                    {"name": "change Ramyeon", "priceIncrement": 3.00}
+                ],
                 "price": 22.00,
-                "description": "Description.",
-                "image": "bibimguksu.jpg",
+                "description": "Spicy cold thin noodle topped with minced pork and vegetables",
+                "image": "bibimguksu.png",
                 "recommended": false
             },
             { 
                 "name": "Moim Guksu",
-                "tags": ["Non-spicy"],
-                "allergens": [""],
-                "options": [],
+                "tags": ["Best Seller","Pork","Sweet"],
+                "allergens": ["egg"],
+                "options": [
+                    {"name": "change Ramyeon", "priceIncrement": 3.00},
+                    {"name": "change Beef", "priceIncrement": 7.00}
+                ],
                 "price": 26.00,
-                "description": "Description.",
-                "image": "moimguksu.jpg",
+                "description": "Thin noodle soup topped with pan-fried marinated pork",
+                "image": "moimguksu.png",
+                "recommended": false
+            },
+            { 
+                "name": "Janchi Guksu",
+                "tags": ["Vegetarian"],
+                "allergens": ["egg"],
+                "options": [
+                    {"name": "change Ramyeon", "priceIncrement": 3.00}
+                ],
+                "price": 20.00,
+                "description": "Thin noodle soup with variety of vegetables",
+                "image": "janchiguksu.jpg",
                 "recommended": false
             },
             {
                 "name": "Non-spicy Haemul Ramyeon",
-                "tags": ["Non-spicy"],
-                "allergens": [""],
+                "tags": ["Seafood","Non-spicy"],
+                "allergens": ["Seafood"],
                 "options": [],
                 "price": 26.00,
-                "description": "Description.",
+                "description": "Non spicy seafood ramyeon",
                 "image": "nonspicyhaemulramyeon.jpg",
                 "recommended": false
             },
             {
                 "name": "Haemul Ramyeon",
-                "tags": ["Spicy"],
-                "allergens": [""],
+                "tags": ["Best Seller","Seafood","Spicy"],
+                "allergens": ["Seafood"],
                 "options": [],
-                "price": 23.00,
-                "description": "Description.",
+                "price": 26.00,
+                "description": "Spicy seafood ramyeon",
                 "image": "haemulramyeon.jpg",
                 "recommended": false
             },
-            
-                {
-                    "name": "Chicken Ramyeon",
-                    "tags": ["Non-spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 23.00,
-                    "description": "Description.",
-                    "image": "chickenramyeon.jpg",
-                    "recommended": false
-                },
-                {
-                    "name": "Budae-Jjigae-Ramyeon",
-                    "tags": ["Spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 24.00,
-                    "description": "Description.",
-                    "image": "budaejjigaeramyeon.jpg",
-                    "recommended": false
-                },
-                {
-                    "name": "Sagol-Tteok-Guk",
-                    "tags": ["Non-spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 24.00,
-                    "description": "Description.",
-                    "image": "sagoltteokguk.jpg",
-                    "recommended": false
-                },
-                {
-                    "name": "Sagol Tteok-Mandu Guk",
-                    "tags": ["Non-spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 27.00,
-                    "description": "Description.",
-                    "image": "sagoltteokmanduguk.jpg",
-                    "recommended": false
-                },
-                {
-                    "name": "Sagol-Mandu-Guk",
-                    "tags": ["Non-spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 28.00,
-                    "description": "Description.",
-                    "image": "sagolmanduguk.jpg",
-                    "recommended": false
-                },
-                {
-                    "name": "Jja-Jang-Myeon",
-                    "tags": ["Non-spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 24.00,
-                    "description": "Description.",
-                    "image": "jjajangmyeon.jpg",
-                    "recommended": false
-                },
-                {
-                    "name": "Buldak-Bokkeum Myeon",
-                    "tags": ["Spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 21.00,
-                    "description": "Description.",
-                    "image": "buldakbokkeummyeon.jpg",
-                    "recommended": false
-                },
-                {
-                    "name": "Mul-Naeng-Myeon",
-                    "tags": ["Non-spicy"],
-                    "allergens": [""],
-                    "options": [],
-                    "price": 26.00,
-                    "description": "Description.",
-                    "image": "mulnaengmyeon.jpg",
-                    "recommended": false
-                }
+            {
+                "name": "Chicken Ramyeon",
+                "tags": ["Chicken","Little Spicy"],
+                "allergens": [""],
+                "options": [],
+                "price": 23.00,
+                "description": "Chicken ramyeon",
+                "image": "chickenramyeon.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Budae-Jjigae-Ramyeon",
+                "tags": ["Best Seller","Chicken","Spicy"],
+                "allergens": [""],
+                "options": [],
+                "price": 24.00,
+                "description": "Spicy ramyeon with chicken sausage and ham",
+                "image": "budaejjigaeramyeon.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Sagol-Tteok-Guk",
+                "tags": ["Beef","Non-spicy"],
+                "allergens": ["egg"],
+                "options": [
+                    {"name": "change Ramyeon", "priceIncrement": 3.00}
+                ],
+                "price": 24.00,
+                "description": "Beef bone broth soup with sliced ovals of rice cake",
+                "image": "sagoltteokguk.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Sagol Tteok-Mandu Guk",
+                "tags": ["Beef","Non-spicy"],
+                "allergens": ["egg"],
+                "options": [
+                    {"name": "Pork Dumpling", "priceIncrement": 0.00},
+                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00}
+                ],
+                "price": 27.00,
+                "description": "Beef bone broth soup with sliced ovals of rice cake and Korean dumplings",
+                "image": "sagoltteokmanduguk.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Sagol-Mandu-Guk",
+                "tags": ["Beef","Non-spicy"],
+                "allergens": ["egg"],
+                "options": [
+                    {"name": "Pork Dumpling", "priceIncrement": 0.00},
+                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00},
+                    {"name": "Mix Dumpling", "priceIncrement": 0.00}
+                   
+                ],
+                "price": 28.00,
+                "description": "Beef bone broth soup with Korean dumplings",
+                "image": "sagolmanduguk.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Jja-Jang-Myeon",
+                "tags": ["Pork","Non-spicy"],
+                "allergens": [""],
+                "options": [],
+                "price": 24.00,
+                "description": "Black bean sauce noodle with pork",
+                "image": "jjajangmyeon.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Buldak-Bokkeum Myeon",
+                "tags": ["Very Spicy"],
+                "allergens": ["egg"],
+                "options": [],
+                "price": 21.00,
+                "description": "Stir fried super spicy chicken flavoured ramyeon",
+                "image": "buldakbokkeummyeon.jpg",
+                "recommended": false
+            },
+            {
+                "name": "Mul-Naeng-Myeon",
+                "tags": ["Cold","Beef","Non-spicy"],
+                "allergens": [""],
+                "options": [],
+                "price": 26.00,
+                "description": "Cold buckwheat noodle with sliced beef",
+                "image": "mulnaengmyeon.jpg",
+                "recommended": false
+            }
             
             
         ]
@@ -297,8 +326,8 @@
                 "tags": ["Popular", "Spicy"],
                 "allergens": ["Soy", "Sesame"],
                 "options": [
-                     {"name": "Tuna", "priceIncrement": 3.00}, 
-                     {"name": "Pork"}],
+                     {"name": "Tuna", "priceIncrement": 3.00, "multiple": true}, 
+                     { "name": "A La Carte", "isDiscount": true, "multiple": true }],
                 "price": 22.00,
                 "description": "Kimchi Stew with Pork belly",
                 "image": "kimchijjigae.jpg",

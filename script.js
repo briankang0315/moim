@@ -54,9 +54,9 @@ function increaseQuantity() {
 }
 
 function updateAddToCartButton() {
-    const price = parseFloat(document.getElementById('addToCartButton').dataset.price);
-    const totalPrice = (price * quantity).toFixed(2);
-    document.getElementById('addToCartButton').textContent = `Add to cart RM ${totalPrice}`;
+    const price = parseFloat(document.getElementById('addToCartButton').dataset.price) || 0; // Ensure default value
+    const totalPrice = price * quantity;
+    document.getElementById('addToCartButton').textContent = `Add to cart RM ${totalPrice.toFixed(2)}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -96,14 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const tags = urlParams.get('tags').split(',');
         const allergens = urlParams.get('allergens');
         const description = urlParams.get('description');
-        const price = parseFloat(urlParams.get('price')).toFixed(2);
+        const price = parseFloat(urlParams.get('price')) || 0; // Ensure default value
 
         document.getElementById('dishName').textContent = dishName;
         document.getElementById('dishImage').src = imageUrl;
         document.getElementById('dishImage').alt = dishName;
         document.getElementById('allergens').textContent = `ALLERGENS: ${allergens}`;
         document.getElementById('description').textContent = description;
-        document.getElementById('addToCartButton').textContent = `Add to cart RM ${price}`;
+        document.getElementById('addToCartButton').textContent = `Add to cart RM ${price.toFixed(2)}`;
         document.getElementById('addToCartButton').dataset.price = price;
 
         const tagsContainer = document.getElementById('tags');
@@ -149,6 +149,7 @@ function loadMenuCards(data, category) {
         });
     }
 }
+
 function createMenuCard(dish) {
     const cardLink = document.createElement('a');
     cardLink.href = `detailedmenu.html?name=${encodeURIComponent(dish.name)}&image=${encodeURIComponent(dish.image)}&tags=${encodeURIComponent(dish.tags.join(','))}&allergens=${encodeURIComponent(dish.allergens.join(','))}&description=${encodeURIComponent(dish.description)}&price=${dish.price}`;
@@ -197,19 +198,33 @@ function createMenuCard(dish) {
         dish.options.forEach(option => {
             const optionButton = document.createElement('button');
             optionButton.className = 'option-button';
-            optionButton.textContent = option.priceIncrement 
-                ? `${option.name} (+RM ${option.priceIncrement.toFixed(2)})` 
-                : option.name;
+            optionButton.textContent = option.isDiscount
+                ? `${option.name} (10% Off)`
+                : `${option.name} (+RM ${Number(option.priceIncrement).toFixed(2)})`; // Ensure number format
 
-            // Store price increment as data attribute
-            optionButton.dataset.priceIncrement = option.priceIncrement || 0;
+            // Store price increment and multiple selection flag as data attributes
+            optionButton.dataset.priceIncrement = Number(option.priceIncrement) || 0;
+            optionButton.dataset.multiple = option.multiple;
+            optionButton.dataset.isDiscount = option.isDiscount || false;
 
             optionButton.onclick = (event) => {
                 event.stopPropagation(); // Prevent card click event
-                // Toggle selection
-                optionsContainer.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('selected'));
-                optionButton.classList.add('selected');
-                updatePrice(dish.price, parseFloat(optionButton.dataset.priceIncrement), card); // Update price based on option
+
+                if (option.multiple) {
+                    // Allow multiple selections
+                    optionButton.classList.toggle('selected');
+                } else {
+                    // Allow only single selection for this option
+                    optionsContainer.querySelectorAll('.option-button').forEach(btn => {
+                        if (!btn.dataset.multiple) {
+                            btn.classList.remove('selected');
+                        }
+                    });
+                    optionButton.classList.add('selected'); // Ensure only one is selected
+                }
+
+                // Calculate total price with selected options and apply discount if needed
+                calculateFinalPrice(dish, optionsContainer, card);
             };
 
             optionsContainer.appendChild(optionButton);
@@ -223,7 +238,7 @@ function createMenuCard(dish) {
 
     const price = document.createElement('span');
     price.className = 'price';
-    price.textContent = `RM ${dish.price.toFixed(2)}`;
+    price.textContent = `RM ${Number(dish.price).toFixed(2)}`; // Ensure number format
 
     const addToCart = document.createElement('button');
     addToCart.className = 'add-to-cart';
@@ -232,10 +247,15 @@ function createMenuCard(dish) {
     // Prevent link navigation on add-to-cart button click
     addToCart.onclick = (event) => {
         event.preventDefault(); // Prevent the link from navigating
-        const selectedOptionElement = card.querySelector('.option-button.selected');
-        const selectedOption = selectedOptionElement ? selectedOptionElement.textContent : 'No option selected';
-        const selectedOptionPriceIncrement = selectedOptionElement ? parseFloat(selectedOptionElement.dataset.priceIncrement || 0) : 0;
-        addToCartHandler(dish, selectedOption, selectedOptionPriceIncrement);
+
+        // Capture all selected options
+        const selectedOptions = Array.from(card.querySelectorAll('.option-button.selected')).map(btn => ({
+            name: btn.textContent,
+            priceIncrement: parseFloat(btn.dataset.priceIncrement || 0),
+            isDiscount: btn.dataset.isDiscount === 'true'
+        }));
+
+        addToCartHandler(dish, selectedOptions);
     };
 
     priceAdd.appendChild(price);
@@ -246,19 +266,66 @@ function createMenuCard(dish) {
     return card;
 }
 
-function updatePrice(basePrice, priceIncrement, card) {
-    const priceElement = card.querySelector('.price');
-    const newPrice = (basePrice + priceIncrement).toFixed(2);
-    priceElement.textContent = `RM ${newPrice}`;
+function calculateFinalPrice(dish, optionsContainer, card) {
+    const selectedOptions = optionsContainer.querySelectorAll('.option-button.selected');
+    let totalIncrement = 0;
+    let isDiscountApplied = false;
+
+    selectedOptions.forEach(btn => {
+        if (btn.dataset.isDiscount === 'true') {
+            isDiscountApplied = true;
+        } else {
+            totalIncrement += parseFloat(btn.dataset.priceIncrement || 0);
+        }
+    });
+
+    // Calculate the final price including any increments
+    let finalPrice = Number(dish.price) + totalIncrement;
+
+    // Apply the discount after adding all increments
+    if (isDiscountApplied) {
+        finalPrice *= 0.90; // Apply 10% discount
+    }
+
+    updatePrice(finalPrice, card);
 }
 
-function addToCartHandler(dish, selectedOption, priceIncrement) {
-    const dishWithOption = {
+function updatePrice(finalPrice, card) {
+    const priceElement = card.querySelector('.price');
+    priceElement.textContent = `RM ${Number(finalPrice).toFixed(2)}`; // Ensure number formatting
+}
+
+function addToCartHandler(dish, selectedOptions) {
+    // Calculate total price increment from selected options
+    let totalPriceIncrement = 0;
+    let isDiscountApplied = false;
+
+    selectedOptions.forEach(option => {
+        if (option.isDiscount) {
+            isDiscountApplied = true;
+        } else {
+            totalPriceIncrement += Number(option.priceIncrement) || 0; // Ensure number format
+        }
+    });
+
+    // Calculate the final price with increments
+    let finalPrice = Number(dish.price) + totalPriceIncrement;
+
+    // Apply the discount if applicable
+    if (isDiscountApplied) {
+        finalPrice *= 0.90; // Apply 10% discount
+    }
+
+    const dishWithOptions = {
         ...dish,
-        selectedOption: selectedOption,
-        price: dish.price + parseFloat(priceIncrement) // Add the price increment to the base price
+        selectedOptions: selectedOptions.map(option => ({
+            ...option,
+            name: option.name.replace(/ \(\d+% Off\)$/, '')
+        })), // Ensure clean option names
+        price: Number(finalPrice).toFixed(2) // Set the final price after discounts and increments
     };
-    cart.push(dishWithOption);
+
+    cart.push(dishWithOptions);
     console.log('Cart:', cart);
     updateCartButton();
 }
@@ -267,7 +334,9 @@ function updateCartButton() {
     const proceedToOrderButton = document.getElementById('proceedToOrderButton');
     const cartCount = document.querySelector('.cart-count');
 
-    cartCount.textContent = cart.length;
+    if (cartCount) {
+        cartCount.textContent = cart.length;
+    }
 
     if (cart.length > 0) {
         proceedToOrderButton.disabled = false;
@@ -281,6 +350,9 @@ function updateCartButton() {
 }
 
 function proceedToOrder() {
-    const tableNumber = sessionStorage.getItem('tableNumber');
-    window.location.href = `ordersummary.html?cart=${encodeURIComponent(JSON.stringify(cart))}&table=${encodeURIComponent(tableNumber)}`;
+    const tableNumber = sessionStorage.getItem('tableNumber') || ''; // Default to empty if not set
+
+    const encodedCart = encodeURIComponent(JSON.stringify(cart));
+
+    window.location.href = `ordersummary.html?cart=${encodedCart}&table=${encodeURIComponent(tableNumber)}`;
 }
