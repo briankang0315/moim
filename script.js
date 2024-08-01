@@ -150,13 +150,12 @@ function loadMenuCards(data, category) {
     }
 }
 function createMenuCard(dish) {
-    // Create card element instead of placing everything inside the link
-    const card = document.createElement('div');
-    card.className = 'card';
-
     const cardLink = document.createElement('a');
     cardLink.href = `detailedmenu.html?name=${encodeURIComponent(dish.name)}&image=${encodeURIComponent(dish.image)}&tags=${encodeURIComponent(dish.tags.join(','))}&allergens=${encodeURIComponent(dish.allergens.join(','))}&description=${encodeURIComponent(dish.description)}&price=${dish.price}`;
     cardLink.className = 'card-link';
+
+    const card = document.createElement('div');
+    card.className = 'card';
 
     const image = document.createElement('img');
     image.src = dish.image;
@@ -176,17 +175,19 @@ function createMenuCard(dish) {
         tags.appendChild(tagElement);
     });
 
-    const allergens = document.createElement('p');
-    allergens.className = 'allergens';
-    allergens.textContent = `ALLERGENS: ${dish.allergens.join(', ')}`;
-
     cardLink.appendChild(image);
     cardLink.appendChild(name);
     cardLink.appendChild(tags);
-    cardLink.appendChild(allergens);
 
-    // Append cardLink to card
     card.appendChild(cardLink);
+
+    // Conditionally add allergens below tags if they exist
+    if (dish.allergens && dish.allergens.length > 0) {
+        const allergens = document.createElement('p');
+        allergens.className = 'allergens';
+        allergens.textContent = `ALLERGENS: ${dish.allergens.join(', ')}`;
+        card.appendChild(allergens); // Append allergens to the card, not the link
+    }
 
     // Add options as buttons below allergens if available
     if (dish.options && dish.options.length > 0) {
@@ -196,13 +197,19 @@ function createMenuCard(dish) {
         dish.options.forEach(option => {
             const optionButton = document.createElement('button');
             optionButton.className = 'option-button';
-            optionButton.textContent = option;
+            optionButton.textContent = option.priceIncrement 
+                ? `${option.name} (+RM ${option.priceIncrement.toFixed(2)})` 
+                : option.name;
+
+            // Store price increment as data attribute
+            optionButton.dataset.priceIncrement = option.priceIncrement || 0;
 
             optionButton.onclick = (event) => {
                 event.stopPropagation(); // Prevent card click event
                 // Toggle selection
                 optionsContainer.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('selected'));
                 optionButton.classList.add('selected');
+                updatePrice(dish.price, parseFloat(optionButton.dataset.priceIncrement), card); // Update price based on option
             };
 
             optionsContainer.appendChild(optionButton);
@@ -225,8 +232,10 @@ function createMenuCard(dish) {
     // Prevent link navigation on add-to-cart button click
     addToCart.onclick = (event) => {
         event.preventDefault(); // Prevent the link from navigating
-        const selectedOption = card.querySelector('.option-button.selected')?.textContent || 'No option selected';
-        addToCartHandler(dish, selectedOption);
+        const selectedOptionElement = card.querySelector('.option-button.selected');
+        const selectedOption = selectedOptionElement ? selectedOptionElement.textContent : 'No option selected';
+        const selectedOptionPriceIncrement = selectedOptionElement ? parseFloat(selectedOptionElement.dataset.priceIncrement || 0) : 0;
+        addToCartHandler(dish, selectedOption, selectedOptionPriceIncrement);
     };
 
     priceAdd.appendChild(price);
@@ -234,14 +243,20 @@ function createMenuCard(dish) {
 
     card.appendChild(priceAdd);
 
-    return card; // Return the card div instead of cardLink
+    return card;
 }
 
+function updatePrice(basePrice, priceIncrement, card) {
+    const priceElement = card.querySelector('.price');
+    const newPrice = (basePrice + priceIncrement).toFixed(2);
+    priceElement.textContent = `RM ${newPrice}`;
+}
 
-function addToCartHandler(dish, selectedOption) {
+function addToCartHandler(dish, selectedOption, priceIncrement) {
     const dishWithOption = {
         ...dish,
-        selectedOption: selectedOption // Save the selected option
+        selectedOption: selectedOption,
+        price: dish.price + parseFloat(priceIncrement) // Add the price increment to the base price
     };
     cart.push(dishWithOption);
     console.log('Cart:', cart);

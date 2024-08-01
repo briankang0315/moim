@@ -265,12 +265,14 @@ h2 {
     font-size: 0.8em;
     color: #7A2C2E;
     margin: 10px 0;
-}.options-container {
+}
+.options-container {
     display: flex;
+    flex-wrap: wrap;  /* Allow items to wrap to the next line */
     justify-content: center;
-    gap: 10px;
-    margin-top: 5px; /* Reduce top margin for tighter layout */
-    margin-bottom: 10px; /* Add bottom margin for spacing */
+    gap: 10px;  /* Space between buttons */
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .option-button {
@@ -281,6 +283,11 @@ h2 {
     color: #7A2C2E;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
+    flex: 1 1 45%;  /* Make each button occupy up to 45% of the row */
+    max-width: 100px;  /* Maximum width for each button */
+    box-sizing: border-box;  /* Include padding and border in width */
+    text-align: center;  /* Center text inside button */
+    height: 30px;
 }
 
 .option-button:hover {
@@ -292,7 +299,6 @@ h2 {
     color: #FFFFFF;
     border-color: #7A2C2E;
 }
-
 
 .card .price-add {
     display: flex;

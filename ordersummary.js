@@ -15,10 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedOption = document.createElement('p');
         selectedOption.textContent = `Option: ${dish.selectedOption || 'None'}`;
 
-        const price = document.createElement('p');
-        price.textContent = `RM ${dish.price.toFixed(2)}`;
+        // Calculate the price with the option increment
+        const finalPrice = dish.price;
         
-        totalPrice += dish.price;
+        const price = document.createElement('p');
+        price.textContent = `RM ${finalPrice.toFixed(2)}`;
+        
+        totalPrice += finalPrice;
         
         item.appendChild(name);
         item.appendChild(selectedOption); // Add selected option to order summary
