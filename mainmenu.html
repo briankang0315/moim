@@ -10,9 +10,12 @@
 <body>
     <div class="container">
         <img src="moim_logo.png" alt="Restaurant Logo" class="small-logo">
-        <h2>Our Menu</h2>
+        <h2>Menu</h2>
         <div id="categoryTabs" class="category-tabs"></div>
         <div id="menuCards" class="menu-cards"></div>
+        <button id="proceedToOrderButton" class="proceed-to-order-button disabled" onclick="proceedToOrder()" disabled>
+            Proceed to Order <span class="cart-count">0</span>
+        </button>
     </div>
     <script src="script.js"></script>
 </body>

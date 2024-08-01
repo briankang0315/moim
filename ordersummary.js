@@ -11,13 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const name = document.createElement('p');
         name.textContent = dish.name;
-        
+
+        const selectedOption = document.createElement('p');
+        selectedOption.textContent = `Option: ${dish.selectedOption || 'None'}`;
+
         const price = document.createElement('p');
         price.textContent = `RM ${dish.price.toFixed(2)}`;
         
         totalPrice += dish.price;
         
         item.appendChild(name);
+        item.appendChild(selectedOption); // Add selected option to order summary
         item.appendChild(price);
         orderSummary.appendChild(item);
     });

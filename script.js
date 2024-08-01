@@ -28,7 +28,9 @@ function storeTableNumber() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const menuContainer = document.querySelector(".menu-container");
-    menuContainer.scrollLeft = 0; // Ensure it starts from the very beginning
+    if (menuContainer) {
+        menuContainer.scrollLeft = 0; // Ensure it starts from the very beginning
+    }
 });
 
 function goBack() {
@@ -147,14 +149,14 @@ function loadMenuCards(data, category) {
         });
     }
 }
-
 function createMenuCard(dish) {
+    // Create card element instead of placing everything inside the link
+    const card = document.createElement('div');
+    card.className = 'card';
+
     const cardLink = document.createElement('a');
     cardLink.href = `detailedmenu.html?name=${encodeURIComponent(dish.name)}&image=${encodeURIComponent(dish.image)}&tags=${encodeURIComponent(dish.tags.join(','))}&allergens=${encodeURIComponent(dish.allergens.join(','))}&description=${encodeURIComponent(dish.description)}&price=${dish.price}`;
     cardLink.className = 'card-link';
-
-    const card = document.createElement('div');
-    card.className = 'card';
 
     const image = document.createElement('img');
     image.src = dish.image;
@@ -178,9 +180,36 @@ function createMenuCard(dish) {
     allergens.className = 'allergens';
     allergens.textContent = `ALLERGENS: ${dish.allergens.join(', ')}`;
 
-    const menuType = document.createElement('p');
-    menuType.className = 'menu-type';
-    menuType.textContent = dish.menuType;
+    cardLink.appendChild(image);
+    cardLink.appendChild(name);
+    cardLink.appendChild(tags);
+    cardLink.appendChild(allergens);
+
+    // Append cardLink to card
+    card.appendChild(cardLink);
+
+    // Add options as buttons below allergens if available
+    if (dish.options && dish.options.length > 0) {
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'options-container';
+
+        dish.options.forEach(option => {
+            const optionButton = document.createElement('button');
+            optionButton.className = 'option-button';
+            optionButton.textContent = option;
+
+            optionButton.onclick = (event) => {
+                event.stopPropagation(); // Prevent card click event
+                // Toggle selection
+                optionsContainer.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('selected'));
+                optionButton.classList.add('selected');
+            };
+
+            optionsContainer.appendChild(optionButton);
+        });
+
+        card.appendChild(optionsContainer); // Append options after allergens
+    }
 
     const priceAdd = document.createElement('div');
     priceAdd.className = 'price-add';
@@ -192,41 +221,51 @@ function createMenuCard(dish) {
     const addToCart = document.createElement('button');
     addToCart.className = 'add-to-cart';
     addToCart.textContent = 'Add to cart';
+
+    // Prevent link navigation on add-to-cart button click
     addToCart.onclick = (event) => {
         event.preventDefault(); // Prevent the link from navigating
-        addToCartHandler(dish);
+        const selectedOption = card.querySelector('.option-button.selected')?.textContent || 'No option selected';
+        addToCartHandler(dish, selectedOption);
     };
 
     priceAdd.appendChild(price);
     priceAdd.appendChild(addToCart);
 
-    card.appendChild(image);
-    card.appendChild(name);
-    card.appendChild(tags);
-    card.appendChild(allergens);
-    card.appendChild(menuType);
     card.appendChild(priceAdd);
 
-    cardLink.appendChild(card);
-    return cardLink;
+    return card; // Return the card div instead of cardLink
 }
 
-function addToCartHandler(dish) {
-    cart.push(dish);
+
+function addToCartHandler(dish, selectedOption) {
+    const dishWithOption = {
+        ...dish,
+        selectedOption: selectedOption // Save the selected option
+    };
+    cart.push(dishWithOption);
     console.log('Cart:', cart);
     updateCartButton();
 }
 
 function updateCartButton() {
     const proceedToOrderButton = document.getElementById('proceedToOrderButton');
-    proceedToOrderButton.disabled = false;
-    proceedToOrderButton.classList.add('enabled');
-    proceedToOrderButton.classList.remove('disabled');
-    proceedToOrderButton.innerHTML = `Proceed to Order <span class="cart-count">${cart.length}</span>`;
+    const cartCount = document.querySelector('.cart-count');
+
+    cartCount.textContent = cart.length;
+
+    if (cart.length > 0) {
+        proceedToOrderButton.disabled = false;
+        proceedToOrderButton.classList.add('enabled');
+        proceedToOrderButton.classList.remove('disabled');
+    } else {
+        proceedToOrderButton.disabled = true;
+        proceedToOrderButton.classList.remove('enabled');
+        proceedToOrderButton.classList.add('disabled');
+    }
 }
 
 function proceedToOrder() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const tableNumber = urlParams.get('table');
+    const tableNumber = sessionStorage.getItem('tableNumber');
     window.location.href = `ordersummary.html?cart=${encodeURIComponent(JSON.stringify(cart))}&table=${encodeURIComponent(tableNumber)}`;
 }
