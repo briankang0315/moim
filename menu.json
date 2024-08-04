@@ -225,9 +225,9 @@
                 "tags": ["Beef","Non-spicy"],
                 "allergens": ["Egg"],
                 "options": [
-                    {"name": "Pork Dumpling", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00, "multiple":false},
-                    {"name": "change Ramyeon", "priceIncrement": 3.00, "multiple": true}
+                    {"name": "Pork Dumpling", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "dumpling"},
+                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00, "multiple":false, "required": true, "group": "dumpling"},
+                    {"name": "change Ramyeon", "priceIncrement": 3.00, "multiple": true, "required": false}
                 ],
                 "price": 27.00,
                 "description": "Beef bone broth soup with sliced ovals of rice cake and Korean dumplings",
@@ -239,9 +239,9 @@
                 "tags": ["Beef","Non-spicy"],
                 "allergens": ["Egg"],
                 "options": [
-                    {"name": "Pork Dumpling", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Mix Dumpling", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Pork Dumpling", "priceIncrement": 0.00, "multiple": false,  "required": true,"group": "dumpling"},
+                    {"name": "Kimchi Dumpling", "priceIncrement": 0.00, "multiple": false,  "required": true,"group": "dumpling"},
+                    {"name": "Mix Dumpling", "priceIncrement": 0.00, "multiple": false,  "required": true,"group": "dumpling"}
                    
                 ],
                 "price": 28.00,
@@ -605,9 +605,9 @@
                 "tags": ["Best Seller"],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
-                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 0.00,
                 "description": "Honey citron",
@@ -619,9 +619,9 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
-                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 0.00,
                 "description": "Honey green plum",
@@ -633,9 +633,9 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
-                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 0.00,
                 "description": "Honey lemon",
@@ -647,9 +647,9 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false},
-                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Sparkling", "priceIncrement": 10.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 0.00,
                 "description": "Honey jujube",
@@ -671,8 +671,8 @@
                 "tags": ["Best Seller", "Refillable"],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                     
                 ],
                 "price": 3.00,
@@ -685,8 +685,8 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 4.00,
                 "description": "Green tea",
@@ -698,8 +698,8 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 5.00,
                 "description": "Ginseng tea",
@@ -738,11 +738,11 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Orange", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Green Apple", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Apple Carrot", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Pineapple", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Watermelon", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Orange", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Green Apple", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Apple Carrot", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Pineapple", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Watermelon", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 15.00,
                 "description": "100% Slow pressed fruit juice, no sugar, no ice",
@@ -779,8 +779,8 @@
                 "tags": ["Best Seller"],
                 "allergens": [],
                 "options": [
-                    {"name": "Saero", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Jinro", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Saero", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Jinro", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 30.00,
                 "description": "Soju",
@@ -861,8 +861,8 @@
                 "tags": ["Best Seller"],
                 "allergens": ["Dairy"],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 0.00,
                 "description": "Korean milk coffee",
@@ -874,8 +874,8 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 6.00,
                 "description": "Americano",
@@ -897,8 +897,8 @@
                 "tags": [],
                 "allergens": ["Dairy"],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 8.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 9.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 0.00,
                 "description": "Cafe latte",
@@ -920,8 +920,8 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Hot", "priceIncrement": 7.00, "multiple": false},
-                    {"name": "Cold", "priceIncrement": 8.00, "multiple": false}
+                    {"name": "Hot", "priceIncrement": 7.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Cold", "priceIncrement": 8.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 0.00,
                 "description": "Korean coffee",
@@ -940,8 +940,8 @@
                 "tags": ["Best Seller"],
                 "allergens": [],
                 "options": [
-                    {"name": "Original", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Zero", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Original", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Zero", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 6.00,
                 "description": "Coca Cola",
@@ -953,8 +953,8 @@
                 "tags": [],
                 "allergens": [],
                 "options": [
-                    {"name": "Grape", "priceIncrement": 0.00, "multiple": false},
-                    {"name": "Orange", "priceIncrement": 0.00, "multiple": false}
+                    {"name": "Grape", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    {"name": "Orange", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 6.00,
                 "description": "Fanta",

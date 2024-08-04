@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed" rel="stylesheet">
+    <title>Staff Order Dashboard</title>
+    <link rel="stylesheet" href="staff.css">
+</head>
+<body>
+    <h1>Staff Order Dashboard</h1>
+    <div id="tablesContainer">
+        <!-- 33 tables will be displayed here -->
+    </div>
+
+    <!-- Modal for order details -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="orderDetails"></div>
+        </div>
+    </div>
+
+    <!-- Notification sound -->
+    <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
+
+    <script src="staff.js"></script>
+</body>
+</html>

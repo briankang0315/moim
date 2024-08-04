@@ -196,22 +196,26 @@ function createMenuCard(dish) {
         card.appendChild(allergens); // Append allergens to the card, not the link
     }
 
+    let optionsContainer = null; // Declare optionsContainer as null initially
+
     // Add options as buttons below allergens if available
     if (dish.options && dish.options.length > 0) {
-        const optionsContainer = document.createElement('div');
+        optionsContainer = document.createElement('div');
         optionsContainer.className = 'options-container';
 
-        dish.options.forEach((option, index) => {
+        dish.options.forEach((option) => {
             const optionButton = document.createElement('button');
             optionButton.className = 'option-button';
             optionButton.textContent = option.isDiscount
                 ? `${option.name} (10% Off)`
                 : `${option.name} (+RM ${Number(option.priceIncrement).toFixed(2)})`;
 
-            // Store price increment and multiple selection flag as data attributes
+            // Store additional data attributes for checking requirements
             optionButton.dataset.priceIncrement = Number(option.priceIncrement) || 0;
             optionButton.dataset.multiple = option.multiple;
             optionButton.dataset.isDiscount = option.isDiscount || false;
+            optionButton.dataset.required = option.required || false; // New required flag
+            optionButton.dataset.group = option.group || ''; // New group property
 
             optionButton.onclick = (event) => {
                 event.stopPropagation(); // Prevent card click event
@@ -221,10 +225,9 @@ function createMenuCard(dish) {
                     optionButton.classList.toggle('selected');
                 } else {
                     // Allow only one option to be selected at a time
-                    // This also handles mutually exclusive options
                     optionsContainer.querySelectorAll('.option-button').forEach(btn => {
-                        if (btn !== optionButton) {
-                            btn.classList.remove('selected'); // Deselect other options
+                        if (btn !== optionButton && btn.dataset.group === optionButton.dataset.group) {
+                            btn.classList.remove('selected'); // Deselect other options in the same group
                         }
                     });
                     optionButton.classList.toggle('selected'); // Toggle the selected state
@@ -232,6 +235,8 @@ function createMenuCard(dish) {
 
                 // Calculate total price with selected options and apply discount if needed
                 calculateFinalPrice(dish, optionsContainer, card);
+                // Check if required options are selected to enable the Add to Cart button
+                toggleAddToCartButton(card, optionsContainer);
             };
 
             optionsContainer.appendChild(optionButton);
@@ -250,6 +255,14 @@ function createMenuCard(dish) {
     const addToCart = document.createElement('button');
     addToCart.className = 'add-to-cart';
     addToCart.textContent = 'Add to cart';
+    addToCart.disabled = true; // Initially disabled for dishes with required options
+
+    // Warning message for required options
+    const warningMessage = document.createElement('p');
+    warningMessage.className = 'warning-message';
+    warningMessage.style.display = 'none'; // Hide by default
+    warningMessage.textContent = 'Please select required options to add to cart.';
+    card.appendChild(warningMessage);
 
     // Prevent link navigation on add-to-cart button click
     addToCart.onclick = (event) => {
@@ -270,10 +283,32 @@ function createMenuCard(dish) {
 
     card.appendChild(priceAdd);
 
+    // Enable the Add to Cart button if there are no required options or they are satisfied
+    if (!optionsContainer || checkRequiredOptions(optionsContainer)) {
+        addToCart.disabled = false; // Enable the button if there are no required options
+    } else {
+        toggleAddToCartButton(card, optionsContainer); // Check options initially
+    }
+
     return card;
 }
 
+function toggleAddToCartButton(card, optionsContainer) {
+    const addToCart = card.querySelector('.add-to-cart');
+    const warningMessage = card.querySelector('.warning-message');
 
+    if (!optionsContainer || checkRequiredOptions(optionsContainer)) {
+        addToCart.disabled = false;
+        addToCart.classList.add('enabled');
+        addToCart.classList.remove('disabled');
+        warningMessage.style.display = 'none'; // Hide warning message
+    } else {
+        addToCart.disabled = true;
+        addToCart.classList.remove('enabled');
+        addToCart.classList.add('disabled');
+        warningMessage.style.display = 'block'; // Show warning message
+    }
+}
 
 function calculateFinalPrice(dish, optionsContainer, card) {
     const selectedOptions = optionsContainer.querySelectorAll('.option-button.selected');
@@ -366,4 +401,21 @@ function proceedToOrder() {
     window.location.href = `ordersummary.html?table=${encodeURIComponent(tableNumber)}`;
 }
 
+function checkRequiredOptions(optionsContainer) {
+    if (!optionsContainer) {
+        return true; // If no options, no requirements, so return true
+    }
 
+    const requiredOptions = optionsContainer.querySelectorAll('.option-button[data-required="true"]');
+    const selectedRequiredOptions = Array.from(requiredOptions).filter(option => option.classList.contains('selected'));
+
+    // Get all unique groups for required options
+    const optionGroups = [...new Set(Array.from(requiredOptions).map(option => option.dataset.group))];
+    
+    // Ensure that every required group has at least one selected option
+    const allGroupsSatisfied = optionGroups.every(group => {
+        return selectedRequiredOptions.some(option => option.dataset.group === group);
+    });
+
+    return allGroupsSatisfied;
+}

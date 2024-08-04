@@ -68,7 +68,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 orderSummary.appendChild(item);
             });
 
-            updateTotalPrice(totalPrice);
+            const taxAmount = totalPrice * 0.10; // Calculate 10% tax
+            const finalTotal = totalPrice + taxAmount;
+
+            // Display total price and tax
+            const totalPriceContainer = document.createElement('div');
+            totalPriceContainer.className = 'total-price-container';
+
+            const totalElement = document.createElement('p');
+            totalElement.className = 'total-price';
+            totalElement.textContent = `Total: RM ${totalPrice.toFixed(2)}`;
+
+            const taxElement = document.createElement('p');
+            taxElement.className = 'tax-info';
+            taxElement.textContent = `Tax (10%): RM ${taxAmount.toFixed(2)}`;
+
+            const finalTotalElement = document.createElement('p');
+            finalTotalElement.className = 'total-price';
+            finalTotalElement.textContent = `Final Total: RM ${finalTotal.toFixed(2)}`;
+
+            totalPriceContainer.appendChild(totalElement);
+            totalPriceContainer.appendChild(taxElement);
+            totalPriceContainer.appendChild(finalTotalElement);
+            orderSummary.appendChild(totalPriceContainer);
 
             // Add comment section next to the confirm order button
             const commentSection = document.createElement('div');
@@ -121,7 +143,10 @@ function removeFromCart(dish, itemElement, cart) {
         itemElement.remove();
 
         // Update total price
-        updateTotalPrice(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0));
+        const updatedTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const updatedTax = updatedTotal * 0.10; // Recalculate 10% tax
+        const updatedFinalTotal = updatedTotal + updatedTax;
+        updateTotalPrice(updatedTotal, updatedTax, updatedFinalTotal);
 
         // If the cart is empty after removal, display the empty message
         if (cart.length === 0) {
@@ -131,46 +156,55 @@ function removeFromCart(dish, itemElement, cart) {
     }
 }
 
-function updateTotalPrice(newTotal) {
+function updateTotalPrice(newTotal, newTax, newFinalTotal) {
     const totalElement = document.querySelector('.total-price');
-    if (totalElement) {
+    const taxElement = document.querySelector('.tax-info');
+    const finalTotalElement = document.querySelector('.total-price:last-of-type');
+
+    if (totalElement && taxElement && finalTotalElement) {
         totalElement.textContent = `Total: RM ${newTotal.toFixed(2)}`;
+        taxElement.textContent = `Tax (10%): RM ${newTax.toFixed(2)}`;
+        finalTotalElement.textContent = `Final Total: RM ${newFinalTotal.toFixed(2)}`;
     }
 }
 
 function confirmOrder() {
     const tableNumber = sessionStorage.getItem('tableNumber');
     const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const comments = document.querySelector('.comment-input').value; // Get comments from the input
 
-    // Simulate sending order to a phone or notification system
+    // Order details to be sent to the server
     const orderDetails = {
         tableNumber,
-        cart
+        cart,
+        comments,
+        timestamp: new Date().toISOString() // Add timestamp for order
     };
 
-    // Mock API endpoint to simulate sending the order
-    sendOrderToPhone(orderDetails)
-        .then(response => {
-            alert('Order confirmed and sent to the kitchen!');
-            // Clear session storage after order confirmation
-            sessionStorage.removeItem('cart');
-            sessionStorage.removeItem('tableNumber');
-            // Redirect or perform any additional actions after order confirmation
-        })
-        .catch(error => {
-            console.error('Error sending order:', error);
-            alert('There was an error sending your order. Please try again.');
-        });
-}
-
-// Mock function to simulate sending order to a phone (server endpoint)
-function sendOrderToPhone(orderDetails) {
-    return new Promise((resolve, reject) => {
-        // Simulate network delay
-        setTimeout(() => {
-            console.log('Order details sent to phone:', orderDetails);
-            // Simulate success
-            resolve({ success: true });
-        }, 2000);
+    // Send the order to the server using Ngrok URL
+    fetch('https://f1f8-2001-e68-5427-ebe1-60d7-764-a40d-b23a.ngrok-free.app/api/orders', { // Use Ngrok URL
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderDetails)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Order confirmed and sent to the kitchen!');
+        // Clear session storage after order confirmation
+        sessionStorage.removeItem('cart');
+        sessionStorage.removeItem('tableNumber');
+        // Redirect or perform any additional actions after order confirmation
+        window.location.href = 'main.html'; // Redirect back to main page
+    })
+    .catch(error => {
+        console.error('Error sending order:', error);
+        alert('There was an error sending your order. Please try again.');
     });
 }
