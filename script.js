@@ -364,7 +364,6 @@ function updatePrice(finalPrice, card) {
     const priceElement = card.querySelector('.price');
     priceElement.textContent = `RM ${Number(finalPrice).toFixed(2)}`; // Ensure number formatting
 }
-// Function to add an item to the cart and update sessionStorage
 function addToCartHandler(dish, selectedOptions) {
     // Calculate total price increment from selected options
     let totalPriceIncrement = 0;
@@ -397,18 +396,44 @@ function addToCartHandler(dish, selectedOptions) {
 
     cart.push(dishWithOptions);
     console.log('Cart:', cart);
+    
     // Save cart to sessionStorage
     sessionStorage.setItem('cart', JSON.stringify(cart));
-    updateCartButton(); // Update the cart button each time an item is added
+    updateCartButton(); // Update the cart button immediately after an item is added
 }
 
-// Function to update the cart button whenever the cart changes
+function removeFromCart(dish, itemElement, cart) {
+    // Filter out all occurrences of the dish from the cart
+    const keyToRemove = `${dish.name}::${dish.selectedOptions.map(option => option.name).join('|')}`;
+
+    cart = cart.filter((item) => {
+        const itemKey = `${item.name}::${item.selectedOptions.map(option => option.name).join('|')}`;
+        return itemKey !== keyToRemove;
+    });
+
+    // Update the cart in session storage
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+
+    // Remove the item from the DOM
+    itemElement.remove();
+
+    // Update total price
+    updateTotalPrice(cart);
+
+    // Always call updateCartButton to ensure UI reflects changes
+    updateCartButton();
+
+    // If the cart is empty after removal, display the empty message
+    if (cart.length === 0) {
+        displayEmptyCartMessage();
+    }
+}
 function updateCartButton() {
     const proceedToOrderButton = document.getElementById('proceedToOrderButton');
     const cartCount = document.querySelector('.cart-count');
 
     if (cartCount) {
-        cartCount.textContent = cart.length;
+        cartCount.textContent = cart.length; // Update cart count display
     }
 
     if (cart.length > 0) {
