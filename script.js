@@ -22,23 +22,48 @@ function storeTableNumber() {
     const tableNumber = document.getElementById('tableNumber').value;
     if (tableNumber.trim() !== "") {
         sessionStorage.setItem('tableNumber', tableNumber);
-        window.location.href = 'recommendation.html';
+        window.location.href = `mainmenu.html?restaurantId=${sessionStorage.getItem('restaurantId')}`; // Pass restaurantId in URL
     }
 }
+// Load menu data and preload images
+function loadMenuDataAndImages() {
+    fetch('menu.json')
+        .then(response => response.json())
+        .then(data => {
+            // Extract all image URLs from menu data
+            const imageUrls = data.flatMap(category => category.dishes.map(dish => dish.image));
 
-document.addEventListener("DOMContentLoaded", function() {
+            // Preload all images
+            return preloadImages(imageUrls).then(() => data);
+        })
+        .then(data => {
+            loadCategories(data);
+            loadMenuCards(data, currentCategory);
+        })
+        .catch(error => console.error('Error loading menu data or images:', error));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const restaurantId = new URLSearchParams(window.location.search).get('restaurantId') || sessionStorage.getItem('restaurantId');
+    sessionStorage.setItem('restaurantId', restaurantId); // Store or update it
+
     const menuContainer = document.querySelector(".menu-container");
     if (menuContainer) {
         menuContainer.scrollLeft = 0; // Ensure it starts from the very beginning
     }
 
-    // Restore cart from sessionStorage if available
     const storedCart = sessionStorage.getItem('cart');
     if (storedCart) {
         cart = JSON.parse(storedCart);
-        updateCartButton();
+    } else {
+        cart = []; // Ensure cart is empty if nothing is in session storage
     }
+    updateCartButton(); // Always update the cart button to reflect the latest cart state
+
+    // Load menu data and preload images
+    loadMenuDataAndImages();
 });
+
 
 function goBack() {
     window.history.back();
@@ -74,18 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('tableNumber').textContent = `Table No: ${tableNumber}`;
     }
 
-    if (document.getElementById('recommendation')) {
-        fetch('menu.json')
-            .then(response => response.json())
-            .then(data => {
-                const recommendation = document.getElementById('recommendation');
-                const recommendedDish = data.flatMap(category => category.dishes).find(dish => dish.recommended);
-                if (recommendedDish) {
-                    recommendation.appendChild(createMenuCard(recommendedDish));
-                }
-            })
-            .catch(error => console.error('Error loading menu data:', error));
-    }
+        // if (document.getElementById('recommendation')) {
+        //     fetch('menu.json')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             const recommendation = document.getElementById('recommendation');
+        //             const recommendedDish = data.flatMap(category => category.dishes).find(dish => dish.recommended);
+        //             if (recommendedDish) {
+        //                 recommendation.appendChild(createMenuCard(recommendedDish));
+        //             }
+        //         })
+        //         .catch(error => console.error('Error loading menu data:', error));
+        // }
 
     if (document.getElementById('categoryTabs') && document.getElementById('menuCards')) {
         fetch('menu.json')
@@ -144,7 +169,6 @@ function loadCategories(data) {
         document.querySelector('.tab').classList.add('active'); // Set the first tab as active
     }
 }
-
 function loadMenuCards(data, category) {
     const menuCards = document.getElementById('menuCards');
     if (menuCards) {
@@ -154,18 +178,20 @@ function loadMenuCards(data, category) {
         selectedCategory.dishes.forEach(dish => {
             menuCards.appendChild(createMenuCard(dish));
         });
+        menuCards.scrollLeft = 0;
     }
 }
+
 function createMenuCard(dish) {
     const cardLink = document.createElement('a');
-    cardLink.href = `detailedmenu.html?name=${encodeURIComponent(dish.name)}&image=${encodeURIComponent(dish.image)}&tags=${encodeURIComponent(dish.tags.join(','))}&allergens=${encodeURIComponent(dish.allergens.join(','))}&description=${encodeURIComponent(dish.description)}&price=${dish.price}`;
+    cardLink.href = `detailedmenu.html?name=${encodeURIComponent(dish.name)}&image=${encodeURIComponent(dish.image)}&tags=${encodeURIComponent(dish.tags.join(','))}&allergens=${encodeURIComponent(dish.allergens.join(','))}&description=${encodeURIComponent(dish.description)}&price=${dish.price}&restaurantId=${sessionStorage.getItem('restaurantId')}`;
     cardLink.className = 'card-link';
 
     const card = document.createElement('div');
     card.className = 'card';
 
-    const image = document.createElement('img');
-    image.src = dish.image;
+    const image = new Image();
+    image.src = dish.image; // Image src is set after preloading
     image.alt = dish.name;
     image.className = 'dish-image';
 
@@ -338,6 +364,7 @@ function updatePrice(finalPrice, card) {
     const priceElement = card.querySelector('.price');
     priceElement.textContent = `RM ${Number(finalPrice).toFixed(2)}`; // Ensure number formatting
 }
+// Function to add an item to the cart and update sessionStorage
 function addToCartHandler(dish, selectedOptions) {
     // Calculate total price increment from selected options
     let totalPriceIncrement = 0;
@@ -372,9 +399,10 @@ function addToCartHandler(dish, selectedOptions) {
     console.log('Cart:', cart);
     // Save cart to sessionStorage
     sessionStorage.setItem('cart', JSON.stringify(cart));
-    updateCartButton();
+    updateCartButton(); // Update the cart button each time an item is added
 }
 
+// Function to update the cart button whenever the cart changes
 function updateCartButton() {
     const proceedToOrderButton = document.getElementById('proceedToOrderButton');
     const cartCount = document.querySelector('.cart-count');
@@ -393,12 +421,13 @@ function updateCartButton() {
         proceedToOrderButton.classList.add('disabled');
     }
 }
+
 function proceedToOrder() {
     const tableNumber = sessionStorage.getItem('tableNumber') || ''; // Retrieve table number
     sessionStorage.setItem('cart', JSON.stringify(cart)); // Store cart data in session storage
 
     // Redirect to order summary without cart data in the URL
-    window.location.href = `ordersummary.html?table=${encodeURIComponent(tableNumber)}`;
+    window.location.href = `ordersummary.html?table=${encodeURIComponent(tableNumber)}&restaurantId=${sessionStorage.getItem('restaurantId')}`;
 }
 
 function checkRequiredOptions(optionsContainer) {
@@ -418,4 +447,19 @@ function checkRequiredOptions(optionsContainer) {
     });
 
     return allGroupsSatisfied;
+}
+
+// Utility function to preload an image
+function preloadImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+    });
+}
+
+// Preload multiple images and return a Promise that resolves when all are loaded
+function preloadImages(imageUrls) {
+    return Promise.all(imageUrls.map(url => preloadImage(url)));
 }

@@ -3,15 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const orderModal = document.getElementById('orderModal');
     const orderDetails = document.getElementById('orderDetails');
     const closeModal = document.getElementsByClassName('close')[0];
-    fetchOrders();
+    const restaurantId = new URLSearchParams(window.location.search).get('restaurantId') || sessionStorage.getItem('restaurantId');
+    sessionStorage.setItem('restaurantId', restaurantId); // Store or update it
+
+    fetchOrders(restaurantId);
 
     // Refresh orders every 10 seconds
-    setInterval(fetchOrders, 10000);
+    setInterval(() => fetchOrders(restaurantId), 10000);
+
 
     let previousOrders = {}; // Store previous orders for comparison
-
-    function fetchOrders() {
-        fetch('https://f1f8-2001-e68-5427-ebe1-60d7-764-a40d-b23a.ngrok-free.app/api/orders')
+    function fetchOrders(restaurantId) {
+        fetch(`https://moim.ngrok.app/api/orders/${restaurantId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -26,62 +29,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayErrorMessage('Failed to fetch orders. Please try again later.');
             });
     }
-
     function displayTables(orders) {
         const tablesContainer = document.getElementById('tablesContainer');
-        tablesContainer.innerHTML = ''; // Clear previous tables
-
-        // Create a map of orders by table number
+        tablesContainer.innerHTML = '';
+    
         const ordersByTable = orders.reduce((acc, order) => {
             acc[order.tableNumber] = order;
             return acc;
         }, {});
-
-        // Create 33 tables
-        for (let i = 1; i <= 33; i++) {
+    
+        const totalTables = restaurantId === 'Atria' ? 33 : 31; // Adjust based on restaurant
+    
+        for (let i = 1; i <= totalTables; i++) {
             const tableNumber = i.toString();
             const tableDiv = document.createElement('div');
             tableDiv.className = 'table';
             tableDiv.dataset.tableNumber = tableNumber;
-
+    
             const tableHeader = document.createElement('div');
             tableHeader.className = 'table-header';
             tableHeader.textContent = `Table ${tableNumber}`;
-
+    
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = '!';
-
-            // Check if there's an order for the table
+    
             if (ordersByTable[tableNumber]) {
                 const orderTimestamp = new Date(ordersByTable[tableNumber].timestamp);
                 const formattedTime = orderTimestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
+    
                 const timestamp = document.createElement('div');
                 timestamp.className = 'timestamp';
                 timestamp.textContent = `Ordered at: ${formattedTime}`;
                 tableDiv.appendChild(timestamp);
-
-                // Highlight new orders
-                tableDiv.classList.add('new-order');
-                notification.style.display = 'block'; // Show notification
-
-                // Play sound if a new order comes in
+    
+                // Check for new orders
                 if (!previousOrders[tableNumber] || previousOrders[tableNumber].timestamp !== ordersByTable[tableNumber].timestamp) {
                     notificationSound.play();
                 }
+    
+                tableDiv.classList.add('new-order');
+                notification.style.display = 'block';
             }
-
-            // Add click event to show order details in a modal
+    
             tableDiv.addEventListener('click', () => {
                 showOrderDetails(ordersByTable[tableNumber]);
             });
-
+    
             tableDiv.appendChild(tableHeader);
             tableDiv.appendChild(notification);
             tablesContainer.appendChild(tableDiv);
         }
-
+    
         // Update previous orders
         previousOrders = ordersByTable;
     }
@@ -108,8 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             options.className = optionsText !== 'No options' ? 'options' : 'no-options';
             options.textContent = `Options: ${optionsText}`;
             dishDiv.appendChild(options);
-
-          
 
             orderDetails.appendChild(dishDiv);
         });
@@ -143,9 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
             orderModal.style.display = 'none';
         }
     };
-
     function resetTable(tableNumber) {
-        fetch(`https://f1f8-2001-e68-5427-ebe1-60d7-764-a40d-b23a.ngrok-free.app/api/orders/${tableNumber}`, {
+        fetch(`https://moim.ngrok.app/api/orders/${restaurantId}/${tableNumber}`, {
             method: 'DELETE'
         })
         .then(response => {
@@ -156,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             alert(`Orders for Table ${tableNumber} have been reset!`);
-            fetchOrders(); // Refresh orders after resetting
+            fetchOrders(restaurantId); // Refresh orders after resetting
         })
         .catch(error => {
             console.error('Error resetting table orders:', error);

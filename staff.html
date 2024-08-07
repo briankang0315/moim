@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <title>Staff Order Dashboard</title>
     <link rel="stylesheet" href="staff.css">
 </head>
+
 <body>
     <h1>Staff Order Dashboard</h1>
     <div id="tablesContainer">
-        <!-- 33 tables will be displayed here -->
+        <!-- Tables will be displayed here -->
     </div>
 
     <!-- Modal for order details -->
@@ -25,5 +27,13 @@
     <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
 
     <script src="staff.js"></script>
+    <script>
+        // Setting restaurant ID for the staff view
+        // This could be set dynamically if needed
+        const urlParams = new URLSearchParams(window.location.search);
+        const restaurantId = new URLSearchParams(window.location.search).get('restaurantId') || sessionStorage.getItem('restaurantId'); // Default to DPC if not provided
+        sessionStorage.setItem('restaurantId', restaurantId);
+    </script>
 </body>
+
 </html>

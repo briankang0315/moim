@@ -779,7 +779,7 @@
                 "tags": ["Best Seller"],
                 "allergens": [],
                 "options": [
-                    {"name": "Saero", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"},
+                    
                     {"name": "Jinro", "priceIncrement": 0.00, "multiple": false, "required": true, "group": "drink"}
                 ],
                 "price": 30.00,
