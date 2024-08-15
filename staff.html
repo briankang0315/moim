@@ -6,7 +6,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed" rel="stylesheet">
     <title>Staff Order Dashboard</title>
-    <link rel="stylesheet" href="staff.css">
+    <style>
+        /* styles.css */
+
+body {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 4vw;
+    
+    overflow-x: scroll;
+}
+
+h1 {
+    color: #7A2C2E;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#tablesContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Adjusted for 6 columns */
+    gap: 10px;
+    max-width: 1200px;
+    margin: 4vw;
+
+}
+
+.table {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #F9F9F9;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+    height: 8vh;  /* Increased height for timestamp */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+   
+}
+
+.table.new-order {
+    background-color: #ffeb3b; /* Highlight for new orders */
+}
+
+.table:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+.table-header {
+    font-weight: bold;
+    font-size: 1em;
+    color: #7A2C2E;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
+}
+
+.notification {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    display: none; /* Hidden by default */
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.order-details {
+    margin-top: 10px;
+}
+
+.dish-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #7A2C2E;
+    margin: 10px 0;
+}
+
+.options {
+    font-size: 1em;
+    color: #ff5722; /* Highlighted options */
+    font-weight: bold;
+}
+
+.no-options {
+    color: #555; /* Standard color for "No options" */
+}
+
+.price {
+    font-size: 1.1em;
+    color: #333;
+    margin: 5px 0;
+}
+
+.comments {
+    font-size: 0.9em;
+    color: #7A2C2E;
+    margin-top: 10px;
+}
+
+.reset-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.reset-button:hover {
+    background-color: #d32f2f;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+    </style>
 </head>
 
 <body>
@@ -26,13 +202,217 @@
     <!-- Notification sound -->
     <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
 
-    <script src="staff.js"></script>
     <script>
-        // Setting restaurant ID for the staff view
-        // This could be set dynamically if needed
-        const urlParams = new URLSearchParams(window.location.search);
-        const restaurantId = new URLSearchParams(window.location.search).get('restaurantId') || sessionStorage.getItem('restaurantId'); // Default to DPC if not provided
-        sessionStorage.setItem('restaurantId', restaurantId);
+    document.addEventListener('DOMContentLoaded', () => {
+    const notificationSound = document.getElementById('notificationSound');
+    const orderModal = document.getElementById('orderModal');
+    const orderDetails = document.getElementById('orderDetails');
+    const closeModal = document.getElementsByClassName('close')[0];
+    const restaurantId = new URLSearchParams(window.location.search).get('restaurantId') || sessionStorage.getItem('restaurantId');
+    sessionStorage.setItem('restaurantId', restaurantId); // Store or update it
+
+    let previousOrders = {}; // Store previous orders for comparison
+    let fetchInterval; // Store the interval ID
+    let userInteracted = false;
+
+    // Function to set the appropriate interval based on the current time
+    function setFetchInterval() {
+        clearInterval(fetchInterval); // Clear the previous interval
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+
+        // Determine if the current time is within the specified periods
+        const isLunchTime = (hours === 12) || (hours === 13) || (hours === 14 && minutes === 0);
+        const isDinnerTime = (hours === 18) || (hours === 19) || (hours === 20 && minutes <= 30);
+
+        // Set the interval accordingly
+        if (isLunchTime || isDinnerTime) {
+            fetchInterval = setInterval(() => fetchOrders(restaurantId), 20000); // 20 seconds
+        } else {
+            // For off-peak hours, use recursive fetching
+            fetchOrders(restaurantId, true);
+        }
+    }
+
+    // Set the initial fetch interval
+    setFetchInterval();
+
+    // Set an interval to check and update the fetch interval every minute
+    setInterval(setFetchInterval, 120000);
+
+    function fetchOrders(restaurantId, isOffPeak = false) {
+        fetch(`https://moim.ngrok.app/api/orders/${restaurantId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(orders => {
+                displayTables(orders);
+                if (isOffPeak) {
+                    // Check again for new orders after a short delay
+                    setTimeout(() => fetchOrders(restaurantId, true), 300000); // Adjust the delay as needed
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching orders:', error);
+                displayErrorMessage('Failed to fetch orders. Please try again later.');
+                if (isOffPeak) {
+                    // Retry after a delay even if there's an error
+                    setTimeout(() => fetchOrders(restaurantId, true), 60000); // Adjust the delay as needed
+                }
+            });
+    }
+
+    function displayTables(orders) {
+        const tablesContainer = document.getElementById('tablesContainer');
+        tablesContainer.innerHTML = '';
+
+        const ordersByTable = orders.reduce((acc, order) => {
+            acc[order.tableNumber] = order;
+            return acc;
+        }, {});
+
+        const totalTables = restaurantId === 'Atria' ? 33 : 31; // Adjust based on restaurant
+
+        for (let i = 1; i <= totalTables; i++) {
+            const tableNumber = i.toString();
+            const tableDiv = document.createElement('div');
+            tableDiv.className = 'table';
+            tableDiv.dataset.tableNumber = tableNumber;
+
+            const tableHeader = document.createElement('div');
+            tableHeader.className = 'table-header';
+            tableHeader.textContent = `Table ${tableNumber}`;
+
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = '!';
+
+            if (ordersByTable[tableNumber]) {
+                const orderTimestamp = new Date(ordersByTable[tableNumber].timestamp);
+                const formattedTime = orderTimestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                const timestamp = document.createElement('div');
+                timestamp.className = 'timestamp';
+                timestamp.textContent = `${formattedTime}`;
+                tableDiv.appendChild(timestamp);
+
+                // Check for new orders
+                if (!previousOrders[tableNumber] || previousOrders[tableNumber].timestamp !== ordersByTable[tableNumber].timestamp) {
+                    if (userInteracted) {
+                        notificationSound.play().catch(error => console.error('Error playing sound:', error));
+                    }
+                }
+
+                tableDiv.classList.add('new-order');
+                notification.style.display = 'block';
+            }
+
+            tableDiv.addEventListener('click', () => {
+                showOrderDetails(ordersByTable[tableNumber]);
+            });
+
+            tableDiv.appendChild(tableHeader);
+            tableDiv.appendChild(notification);
+            tablesContainer.appendChild(tableDiv);
+        }
+
+        // Update previous orders
+        previousOrders = ordersByTable;
+    }
+
+    function showOrderDetails(order) {
+        if (!order) {
+            alert('No orders for this table.');
+            return;
+        }
+
+        orderDetails.innerHTML = ''; // Clear previous order details
+
+        // Display each dish in the order
+        order.cart.forEach(dish => {
+            const dishDiv = document.createElement('div');
+
+            const dishName = document.createElement('p');
+            dishName.className = 'dish-name';
+            dishName.textContent = dish.name;
+            dishDiv.appendChild(dishName);
+
+            const optionsText = dish.selectedOptions && dish.selectedOptions.length > 0 ? dish.selectedOptions.map(option => option.name).join(', ') : 'No options';
+            const options = document.createElement('p');
+            options.className = optionsText !== 'No options' ? 'options' : 'no-options';
+            options.textContent = `Options: ${optionsText}`;
+            dishDiv.appendChild(options);
+
+            orderDetails.appendChild(dishDiv);
+        });
+
+        // Display additional comments if any
+        if (order.comments) {
+            const commentsDiv = document.createElement('div');
+            commentsDiv.className = 'comments';
+            commentsDiv.innerHTML = `<strong>Comments:</strong> ${order.comments}`;
+            orderDetails.appendChild(commentsDiv);
+        }
+
+        // Add Reset Table button for individual orders
+        const resetButton = document.createElement('button');
+        resetButton.textContent = 'Reset Table';
+        resetButton.className = 'reset-button';
+        resetButton.onclick = () => resetTable(order.tableNumber);
+        orderDetails.appendChild(resetButton);
+
+        // Show modal
+        orderModal.style.display = 'block';
+    }
+
+    // Close modal functionality
+    closeModal.onclick = () => {
+        orderModal.style.display = 'none';
+    };
+
+    window.onclick = (event) => {
+        if (event.target === orderModal) {
+            orderModal.style.display = 'none';
+        }
+    };
+
+    function resetTable(tableNumber) {
+        fetch(`https://moim.ngrok.app/api/orders/${restaurantId}/${tableNumber}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to reset table');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(`Orders for Table ${tableNumber} have been reset!`);
+                fetchOrders(restaurantId); // Refresh orders after resetting
+            })
+            .catch(error => {
+                console.error('Error resetting table orders:', error);
+            });
+    }
+
+    function displayErrorMessage(message) {
+        const tablesContainer = document.getElementById('tablesContainer');
+        tablesContainer.innerHTML = `<p class="error-message">${message}</p>`;
+    }
+
+    // Listen for user interaction events
+    document.addEventListener('click', () => {
+        userInteracted = true;
+    });
+
+    // Initial fetch of orders
+    fetchOrders(restaurantId);
+});
+
     </script>
 </body>
 

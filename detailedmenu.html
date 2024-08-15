@@ -5,7 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Condensed' rel='stylesheet'>
     <title>Menu Detail</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Embedded CSS from styles.css, specific to menu detail page */
+        body {
+            font-family: 'IBM Plex Sans Condensed', sans-serif;
+            background-color: #FFFFFF;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+        .container.d {
+            text-align: center;
+            width: 75vw;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-bottom: 100px;
+            overflow-y: auto;
+            padding-left: 3vw;
+        }
+
+        .dish-image {
+            width: 236px;
+            height: 157px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10vh;
+            left: 12vw;
+            font-size: 15px;
+            color: #ffffff;
+            background-color: #C49970;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card.detail-card {
+            background-color: #F9F9F9;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 35px;
+            margin: -1vw;
+            width: 55vw;
+            height: 50vh;
+            padding-bottom: 50px;
+        }
+
+        .dish-name {
+            font-size: 1.5em;
+            color: #7A2C2E;
+            margin: 10px 0;
+        }
+
+        .tags {
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            background-color: #f1f1f1;
+            color: #7A2C2E;
+            margin-right: 5px;
+        }
+
+        .allergens {
+            font-size: 0.8em;
+            color: #7A2C2E;
+            margin: 10px 0;
+        }
+
+        .description {
+            margin-top: 10px;
+            font-size: 1em;
+            line-height: 1.5;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
     <div class="container.d">
@@ -16,10 +108,45 @@
             <div class="tags" id="tags"></div>
             <p class="allergens" id="allergens">ALLERGENS:</p>
             <p class="description" id="description">Brief description about the dish and its ingredients.</p>
-            <div class="price-add-detail">
-            </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        // Embedded JavaScript from script.js, specific to menu detail page
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const dishName = urlParams.get('name');
+            const imageUrl = urlParams.get('image');
+            const tags = urlParams.get('tags').split(',');
+            const allergens = urlParams.get('allergens');
+            const description = urlParams.get('description');
+            const price = parseFloat(urlParams.get('price')) || 0; // Ensure default value
+
+            document.getElementById('dishName').textContent = dishName;
+
+            const cachedImage = sessionStorage.getItem(`image_${imageUrl}`);
+            const dishImageElement = document.getElementById('dishImage');
+            if (cachedImage) {
+                dishImageElement.src = cachedImage;
+            } else {
+                dishImageElement.src = imageUrl;
+            }
+            dishImageElement.alt = dishName;
+
+            document.getElementById('allergens').textContent = `ALLERGENS: ${allergens}`;
+            document.getElementById('description').textContent = description;
+
+            const tagsContainer = document.getElementById('tags');
+            tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = `tag ${tag.toLowerCase()}`;
+                tagElement.textContent = tag;
+                tagsContainer.appendChild(tagElement);
+            });
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>

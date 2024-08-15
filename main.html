@@ -5,7 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Condensed' rel='stylesheet'>
     <title>Restaurant Ordering</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Condensed', sans-serif;
+            background-color: #FFFFFF;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+        .container {
+            text-align: center;
+            width: 75vw;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-bottom: 100px;
+            overflow-y: auto;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            color: #7A2C2E;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-field {
+            font-size: 1.2em;
+            padding: 10px;
+            border: 2px solid #D8B3B4;
+            border-radius: 8px;
+            width: calc(100% - 24px);
+            margin-bottom: 20px;
+            text-align: center;
+            color: #7A2C2E;
+        }
+
+        .input-field::placeholder {
+            color: #D8B3B4;
+        }
+
+        .view-menu-button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #4F4847;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view-menu-button:disabled {
+            background-color: #BEB9B7;
+            cursor: not-allowed;
+        }
+
+        .view-menu-button:not(:disabled):hover {
+            background-color: #3E3937;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -16,12 +87,34 @@
   
         <button id="viewMenuButton" class="view-menu-button disabled" onclick="storeTableNumber()" disabled>View Menu</button>
     </div>
-    <script src="script.js"></script>
+    <script>
+        function checkInput() {
+            const tableNumber = document.getElementById('tableNumber').value;
+            const viewMenuButton = document.getElementById('viewMenuButton');
+            if (tableNumber.trim() !== "") {
+                viewMenuButton.disabled = false;
+                viewMenuButton.classList.add('enabled');
+                viewMenuButton.classList.remove('disabled');
+            } else {
+                viewMenuButton.disabled = true;
+                viewMenuButton.classList.remove('enabled');
+                viewMenuButton.classList.add('disabled');
+            }
+        }
 
-<script>
-    function setRestaurantId(restaurantId) {
-        sessionStorage.setItem('restaurantId', restaurantId);
-    }
+        function storeTableNumber() {
+            const tableNumber = document.getElementById('tableNumber').value;
+            const restaurantId = new URLSearchParams(window.location.search).get('restaurantId');
+            if (tableNumber.trim() !== "") {
+                sessionStorage.setItem('tableNumber', tableNumber);
+                sessionStorage.setItem('restaurantId', restaurantId); // Ensure restaurantId is stored
+                window.location.href = `mainmenu.html?restaurantId=${restaurantId}`; // Pass restaurantId in URL
+            }
+        }
+
+        function setRestaurantId(restaurantId) {
+            sessionStorage.setItem('restaurantId', restaurantId);
+        }
     </script>
 </body>
 </html>
